@@ -257,3 +257,17 @@ class DTEncoder(json.JSONEncoder):
 
 print(json.dumps(now, cls=DTEncoder))
 
+# Config files
+import configparser
+
+cfg = configparser.ConfigParser()
+cfg.read('data/settings.cfg')
+
+try:
+
+    print(cfg['french']['greeting'])
+    print(cfg['files']['bin'])
+
+except KeyError as e:
+    print(e)
+

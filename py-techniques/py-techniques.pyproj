@@ -33,6 +33,9 @@
     <Compile Include="datetimes.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="dbio.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="fileio.py">
       <SubType>Code</SubType>
     </Compile>
