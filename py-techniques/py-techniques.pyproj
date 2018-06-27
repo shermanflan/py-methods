@@ -51,7 +51,10 @@
     <Compile Include="myprogram.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="scratch.py">
+    <Compile Include="redisio.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="scratch1.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="text.py">
