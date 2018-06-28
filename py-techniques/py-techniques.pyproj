@@ -69,6 +69,7 @@
     <Compile Include="text.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="threads1.py" />
     <Compile Include="web.py">
       <SubType>Code</SubType>
     </Compile>
