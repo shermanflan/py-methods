@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>533df865-0db5-48e7-934b-333d0cd7f688</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>fileio.py</StartupFile>
+    <StartupFile>scratch1.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -39,6 +39,15 @@
     <Compile Include="fileio.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="multiprocess.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="multiprocess2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ossys.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Person.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +67,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="text.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="web.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
