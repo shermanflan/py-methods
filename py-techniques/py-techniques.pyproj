@@ -66,6 +66,12 @@
     <Compile Include="scratch1.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="sockets_client.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="sockets_server.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="text.py">
       <SubType>Code</SubType>
     </Compile>
