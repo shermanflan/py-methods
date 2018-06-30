@@ -71,3 +71,18 @@ print(text2.upper())
 print(text2.swapcase())
 print(text2.replace('a', 'tmp'))
 print(text2.replace('a', 'tmp', 100))
+
+# Formatting
+n = 21
+f = 7.0
+s = 'condesa'
+
+print('{0} {1} {2}'.format(n, f, s))
+print('{0:d} {1:f} {2:s}'.format(n, f, s))
+print('{0:20d} {1:20f} {2:20s}'.format(n, f, s)) # field width
+print('{0:<20d} {1:<20f} {2:<20s}'.format(n, f, s)) # field width, left align
+print('{0:^20d} {1:^20.2f} {2:+^20s}'.format(n, f, s)) # field width, centered, with pad
+
+ht = {'n': 42, 'f': 7.03, 's': 'cheese'}
+
+print('{0[n]} {0[f]} {0[s]} {1}'.format(ht, 'other')) # format dictionary vals
