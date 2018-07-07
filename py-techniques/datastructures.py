@@ -1,10 +1,18 @@
 from collections import namedtuple
 
 # Lists are mutable
+anything = ['spam', 2.0, 5, [10, 20]]
+
+t = ['a', 'b', 'c', 'd', 'e', 'f']
+t[1:3] = ['x', 'y']
+
 empty = []
 empty2 = list()
 days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 catlist = list('cat')
+
+nums = ['1', '2', '3', '4']
+print(list(map(int, nums))) # cast one liner
 
 days[0] = 'lunes'
 print(days[0])
@@ -13,17 +21,17 @@ print(days[0:7:2])
 
 daysdays = [days, days]
 daysdays.insert(0, 'january')
-daysdays.append(['may'])
+daysdays.append(['may']) # modifies source list, + creates new list
 daysdays.extend(['june', 'july']) # combines
 daysdays += ['august', 'september'] # like extend
 
-del daysdays[2]
+del daysdays[2] # also works for slices
 del daysdays[-1]
 daysdays.remove('july')
 
 print(daysdays[1][-1]) # last element of first list
 print(daysdays.pop()) # pop tail
-print(daysdays.pop(0)) # pop head
+print(daysdays.pop(0)) # pop head, or 0..N
 print(daysdays)
 print(daysdays.index('june'))
 print('june' in daysdays)
@@ -41,14 +49,20 @@ print(daysdays[0])
 print(newlist3)
 
 # Tuples are immutable (constant list)
+t0 = ('a',) # comma required for tuple, otherwise a string
+print(type(t0))
 tuple1 = ('ready', 'aim', 'fire')
 toList = list(tuple1)
+quot, rem = divmod(7, 3)
 
 x, y, z = tuple1 # multiple assign
 print(z)
 
 x, y = y, x # exchange
 print(x)
+
+for index, element in enumerate('abc'):
+    print index, element
 
 # Dictionary!
 empty_dict = {}
@@ -78,12 +92,16 @@ print(dict2.items()) # returns enumerable of tuples
 print("apple" in fruit)
 print(fruit.get('kiwi', "Does not exist!"))
 
+d = dict(zip('abc', range(3)))
+print(d)
+
 fruit.clear()
 
 # Set (dictionary without values)
 empty_set = set()
 evens = {2, 4, 6, 8, 20}
 odds = {1, 3, 5, 7, 9}
+odds.add(7)
 
 print(evens)
 print(odds)
@@ -110,3 +128,10 @@ print(daffy.tail)
 duck3 = daffy._replace(tail='magnificent', bill='crushing')
 print(duck3.bill)
 print(duck3.tail)
+
+# Deque
+from collections import deque
+
+d = deque(['6', '9', '8', '7', '3'])
+d.rotate(3)
+print(d)

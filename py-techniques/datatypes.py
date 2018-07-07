@@ -8,6 +8,8 @@ print(a // 2) # prints 5 (throws away remainder)
 print(a / 2) # prints 5.5 (keeps remainder)
 
 # Other math
+print(11 % 10) # modulo 10 extracts last digit
+print(111 % 100) # modulo 100 extracts last 2 digits
 print (a ** b) # power
 print (divmod(a, b)) # produce quotient and remainder
 
@@ -46,6 +48,8 @@ list = ['c', 'a', 't']
 # Slicing
 text2 = "abcdefghijklmnopqrstuvwxyz"
 
+print(text2[-1]) # last character (not a list)
+print(text2[3:3]) # empty string
 print(text2[:]) # entire string
 print(text2[5:]) # Postion 5 to the end 
 print(text2[-5:]) # 5 from the end to the end
@@ -82,6 +86,8 @@ print('{0:d} {1:f} {2:s}'.format(n, f, s))
 print('{0:20d} {1:20f} {2:20s}'.format(n, f, s)) # field width
 print('{0:<20d} {1:<20f} {2:<20s}'.format(n, f, s)) # field width, left align
 print('{0:^20d} {1:^20.2f} {2:+^20s}'.format(n, f, s)) # field width, centered, with pad
+print('{0:{fill}{align}{width}d} '.format(n, fill=' ', align='>', width=10))
+
 
 ht = {'n': 42, 'f': 7.03, 's': 'cheese'}
 

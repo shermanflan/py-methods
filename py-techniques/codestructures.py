@@ -91,7 +91,7 @@ print(list(nums)) # empty (implicitly iterates)
 
 # Functions!
 
-def myFirstFun(anything = None):
+def myFirstFun(anything = 'default value'):
     return 'Hello World!' + anything
 
 print(myFirstFun(anything = '!!!'))
@@ -103,6 +103,10 @@ def printArgsKV(**args): # create dictionary
     print(args)
 
 printArgs('1', '2', '3')
+
+l = ['1', '2', '3', '4']
+printArgs(*l) # scatters list into arguments
+
 printArgsKV(key1='val1', key2='val2', key3='val3')
 
 def times3(*args):

@@ -30,53 +30,16 @@
     <Compile Include="datatypes.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="datetimes.py">
+    <Compile Include="classes.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="dbio.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="fileio.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="multiprocess.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="multiprocess2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ossys.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Person.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="mymodule1.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="mymodule2.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="myprogram.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="redisio.py">
+    <Compile Include="randoms.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="scratch1.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="sockets_client.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="sockets_server.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="text.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="threads1.py" />
-    <Compile Include="web.py">
+    <Compile Include="scratch2.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
