@@ -24,6 +24,24 @@
     <Compile Include="codestructures.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="crack\graph.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\linkedlist.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\queue.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\stack.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\tree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="datastructures.py">
       <SubType>Code</SubType>
     </Compile>
@@ -42,6 +60,9 @@
     <Compile Include="scratch2.py">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="crack\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

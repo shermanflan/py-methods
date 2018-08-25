@@ -14,6 +14,10 @@ print (a ** b) # power
 print (divmod(a, b)) # produce quotient and remainder
 
 # Number literals
+import sys
+print(f'max int: {sys.maxsize}')
+print('float inf: {0}'.format(float('inf')))
+
 base10 = 10
 base2 = 0b10
 base8 = 0o10
@@ -88,6 +92,8 @@ print('{0:<20d} {1:<20f} {2:<20s}'.format(n, f, s)) # field width, left align
 print('{0:^20d} {1:^20.2f} {2:+^20s}'.format(n, f, s)) # field width, centered, with pad
 print('{0:{fill}{align}{width}d} '.format(n, fill=' ', align='>', width=10))
 
+# Shortcut
+print(f'#Hello World! var: {n} {f} {s}')
 
 ht = {'n': 42, 'f': 7.03, 's': 'cheese'}
 

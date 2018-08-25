@@ -1,31 +1,45 @@
-import re
+from collections import deque
+from crack import stack as st
+from crack import queue as q
+from crack import graph as g
+from crack import tree as t
+from crack import linkedlist as ll
+import time
+import math
 
-#m = re.match(r'(\w+)@(\w+)\.(\w+)','username@hackerrank.com')
-#m.group(0)       # The entire match 
-#m.group(1)       # The first parentesized subgroup.
-#m.group(2)       # The second parenthesized subgroup.
-#m.group(3)       # The third parenthesized subgroup.
-#m.group(1,2,3)   # Multiple arguments give us a tuple.
-#m.groups() # same
-#
-#m2 = re.match(r'(?P<user>\w+)@(?P<website>\w+)\.(?P<extension>\w+)','myname@hackerrank.com')
-#m2.groupdict()
-#s = '0'
-#if not bool(re.match('[+-.\d]', s)):
-#    print(False)
-#elif not bool(re.search('.\d', s)):
-#    print(False)
+def printBST(root):
+    if not root:
+        return
+    
+    printBST(root.left)
+
+    print(f'{root}, {root.level}')
+    
+    printBST(root.right)
 
 
-import re
-pattern = r'(?=(aa))'
-m = re.findall(pattern, 'baaadaab')
-#m = re.findall(pattern, 'rabaaacdeefgyYhFjkIoomnpOeorteeeeet')
+a1 = [ 1, 2, 3, 4, 5, 6, 7 ]
+#bst1 = t.BTreeNode.createBST(a1)
 
-print(m)
-#print(m.groups())
+n1 = t.BTreeNode(1)
+n2 = t.BTreeNode(2)
+n3 = t.BTreeNode(3)
+n4 = t.BTreeNode(4)
+n5 = t.BTreeNode(5)
+n6 = t.BTreeNode(6)
+n7 = t.BTreeNode(7)
 
-#if len(m.groups()) > 0:
-#    print(m.group(1))
-#else:
-#    print(-1)
+n4.left = n2
+n4.right = n6
+n2.parent = n4
+n2.left = n1
+n2.right = n3
+n1.parent = n2
+n3.parent = n2
+n6.parent = n4
+n6.left = n5
+n6.right = n7
+n5.parent = n6
+n7.parent = n6
+
+printBST(n4)

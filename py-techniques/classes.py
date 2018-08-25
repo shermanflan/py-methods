@@ -33,7 +33,7 @@ class JDPerson(Person):
         return 80
 
 class MDPerson(Person):
-    count = 0
+    count = 0 # created 1 time and shared across instances (like static)
 
     # Override
     def __init__(self, name, email, *args, **kwargs):
@@ -46,6 +46,7 @@ class MDPerson(Person):
         print('I\'m a doctor')
 
     # Property: Option 2
+    # Use over public attributes (self.*) when additional validation/behavior is required.
     @property
     def email(self):
         print('getter')
@@ -56,7 +57,7 @@ class MDPerson(Person):
         print('setter')
         self.__email = email
 
-    # Class method
+    # Class method: can be used to define alternative constructors for your classes.
     @classmethod
     def classMethod(cls):
         print("class method call: " + str(cls.count))
@@ -72,3 +73,30 @@ class MDPerson(Person):
 
     def __str__(self): # like ToString
         return self.name
+
+# Custom iterator class
+class ReadVisits(object):
+    def __init__(self, data_path):
+        self.data_path = data_path
+
+    def __iter__(self):
+        with open(self.data_path) as f:
+            for line in f:
+                yield int(line)
+
+# Allows an object to be called like a function
+class BetterCountMissing(object):
+    def __init__(self):
+        self.added = 0
+
+    def __call__(self):
+        self.added += 1
+        return 0
+
+counter = BetterCountMissing()
+print(counter())
+
+# Use modules
+from crack import linkedlist
+
+print(linkedlist.node(7))
