@@ -24,6 +24,9 @@
     <Compile Include="codestructures.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="crack\bitmath.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="crack\graph.py">
       <SubType>Code</SubType>
     </Compile>
