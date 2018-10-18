@@ -26,7 +26,7 @@ print(days[0:7:2])
 
 daysdays = [days, days]
 daysdays.insert(0, 'january') # slower than append (b/c data movement / O(n**2) )
-daysdays.append(['may']) # modifies source list, + creates new list / O(n)
+daysdays.append(['may']) # modifies source list, '+' creates new list / O(n)
 daysdays.extend(['june', 'july']) # combines -- faster than sum(lists, [])
 daysdays += ['august', 'september'] # like extend
 
@@ -135,6 +135,10 @@ stats['my_counter'] += 1
 
 # Set (dictionary without values)
 # Membership checks are linear for lists and constant for sets.
+# remove throws exception if not exist
+# discard doesn't throw exception if not exist
+# pop throws exception if empty
+
 empty_set = set()
 evens = {2, 4, 6, 8, 20}
 odds = {1, 3, 5, 7, 9}
