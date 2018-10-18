@@ -10,7 +10,7 @@ class NTreeNode(object):
     In order Binary Traveral: left child, node, right child
     Pre-order Binary Traversal: node, left child, right child
     Post-order Binary Traversal: left child, right child, node
-    Min-head: Complete binary tree where each node is less than its children
+    Min-heap/priority queue: Complete binary tree where each node is less than its children
     Trie: An n-ary tree where each node stores a single character.
     """
     def __init__(self, name):

@@ -5,7 +5,7 @@ from collections import namedtuple
 # Deleting from the end of a list takes constant time, though. 
 # You can delete in constant time by overwriting it with the 
 # one that is currently last in the list, before calling the 
-# pop method. Same condsiderations for insert/append
+# pop method. Same considerations for insert/append
 anything = ['spam', 2.0, 5, [10, 20]]
 
 t = ['a', 'b', 'c', 'd', 'e', 'f']

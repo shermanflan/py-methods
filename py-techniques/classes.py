@@ -4,10 +4,10 @@ class Person(object): # inherits from object
     """My first class"""
     # Constructor
     def __init__(self, input_name, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.__name = input_name
-        return super().__init__(*args, **kwargs)
 
-    def Exclaim(this):
+    def Exclaim(self):
         print('I\'m a person')
 
     # Property: Option 1
@@ -19,7 +19,11 @@ class Person(object): # inherits from object
         print('setter')
         self.__name = input_name
 
-    name = property(get_name, set_name)
+    def del_name(self):
+        print('deleter')
+        del self.__name
+
+    name = property(get_name, set_name, del_name)
 
 # Inheritance
 class JDPerson(Person):
