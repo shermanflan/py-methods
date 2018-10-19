@@ -57,6 +57,9 @@
     <Compile Include="randoms.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="regex.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scratch1.py">
       <SubType>Code</SubType>
     </Compile>
