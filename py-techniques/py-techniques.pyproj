@@ -54,6 +54,12 @@
     <Compile Include="classes.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="datetimepython.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="numpython.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="randoms.py">
       <SubType>Code</SubType>
     </Compile>

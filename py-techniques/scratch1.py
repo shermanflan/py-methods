@@ -1,15 +1,26 @@
+# File harness
 try:
 
-    with open("C:\\Users\\ricardogu\\Desktop\\test.txt", "r", encoding="utf-8") as f:
-        K = int(f.readline())
-        rooms = list(map(int, f.readline().split(' ')))
+    with open("C:\\Users\\rguzman\\Desktop\\test.txt", "r", encoding="utf-8") as f:
+        n, m = map(int, f.readline().rstrip().split())
 
-        fams = len(rooms)//K
-        total = sum(rooms)
-        #print(total)
-        for i in range(1, fams + 1):
-            total -= i * K
-    
-        print(total)
+        arr = map(int, f.readline().rstrip().split())
+
+        A = set(map(int, f.readline().rstrip().split()))
+        B = set(map(int, f.readline().rstrip().split()))
+
+        #C = set(arr)
+        #A = A & C
+        #B = B & C
+        happy = 0
+
+        for n in arr:
+            if n in A:
+                happy += 1
+            elif n in B:
+                happy -= 1
+            
+        print(happy)
+
 except Exception as e:
     print(e)

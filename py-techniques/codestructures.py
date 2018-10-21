@@ -184,7 +184,7 @@ def my_range(first, last, step):
 for n in my_range(0, 10, 2):
     print(n)
 
-# Decorator: takes a func as an arg and returns another arg
+# Decorator: takes a func as an arg and returns another function
 def docFunc(func):
     def decorateFunc(*args, **kwargs):
         print('Running function:', func.__name__)
@@ -202,6 +202,7 @@ newFunc = docFunc(myAdd) # manual decorator assignment
 newFunc(2, 4, key1='val1', key2='val2')
 
 # Or
+# Same as: myAdd2 = docFunc(myAdd2)
 @docFunc
 def myAdd2(p, q, **kwargs):
     return p + q
