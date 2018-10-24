@@ -1,22 +1,17 @@
+from collections import deque
+
 class Trie(object):
     def __init__(self, l):
         super().__init__()
         self.label = l
-        self.children = []
+        self.children = {}
+        self.wordcount = 0
     
     def contains(self, l):
-        for n in self.children:
-            if n.label == l:
-                return True
-
-        return False
+        return l in self.children
 
     def getNode(self, l):
-        for n in self.children:
-            if n.label == l:
-                return n
-
-        return None
+        return self.children[l]
 
     def addWord(self, word):
         cur = self
@@ -24,6 +19,7 @@ class Trie(object):
         
         # Find end of Trie
         while cur.contains(word[i]):
+            cur.wordcount += 1
             cur = cur.getNode(word[i])
             i += 1
 
@@ -36,7 +32,8 @@ class Trie(object):
 
     def addChild(self, l):
         node = Trie(l)
-        self.children.append(node)
+        self.children[l] = node
+        self.wordcount += 1
         return node
 
     def find(self, p):
@@ -50,37 +47,45 @@ class Trie(object):
         if i == 0 or i < len(p):
             return 0 # no prefix
         else:
-            return self.countWords(cur)
-    
-    def countWords(self, n):
-        count = []
-        self.countWordsR(n, count)
-        return len(count)
-
-    def countWordsR(self, n, count):
-        if n.label == '-1':
-            count.append(1)
-        
-        for c in n.children:
-            self.countWordsR(c, count)
-
-        return count
+            return cur.wordcount
 
     def __str__(self):
-        s = self.label
+        print(f'{self.label}({self.wordcount})')
 
-        for n in self.children:
-            s += f'{n.__str__()}'
+        for c in self.children.values():
+            print(c.__str__(), end=' ')
 
-        return s
+        return ''
 
-t = Trie('+')
-t.addWord('hack')
-t.addWord('hacker')
-t.addWord('hackerrank')
-t.addWord('ricardo')
+def contacts(queries):
+    book = Trie('root')
+    counts = []
+    
+    for q in queries:
+        cmd, arg = q[0], q[1]
+        
+        if cmd == 'add':
+            book.addWord(arg)
+        elif cmd == 'find':
+            found = book.find(arg)
+            counts.append(found)
+        else:
+            raise Exception('Invalid command!')
+    
+    return counts
 
-print(t.find('r'))
-print(t.find('zackerranks'))
-print(t.find('hack'))
-print(t.find('hackerrr'))
+try:
+
+    with open("C:\\Users\\rguzman\\Desktop\\test.txt", "r", encoding="utf-8") as f:
+
+        queries_rows = int(f.readline().rstrip())
+        queries = []
+
+        for _ in range(queries_rows):
+            queries.append(f.readline().rstrip().split())
+
+        result = contacts(queries)
+        print('\n'.join(map(str, result)))
+
+except Exception as e:
+    print(e)
