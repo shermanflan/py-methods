@@ -1,4 +1,7 @@
+from random import randint
+
 # Recursive form
+# Iterative form is also possible
 def mergeSortR(arr):
     if len(arr) <= 1:
         return arr
@@ -28,12 +31,30 @@ def mergeSortR(arr):
         
     return merge
 
-# Iterative from
-def mergeSort(arr):
+# Recursive
+# Can also be done in place, iteratively
+def quickSort(arr):
+    if len(arr) <= 1:
+        return arr
 
+    pivot = getPivot(arr)
 
-#arr = list(map(int, '3 7'.split()))
-arr = list(map(int, '10 9 8 7 6 5 4 3 2 1 0 -1 -2'.split()))
+    L = [n for n in arr if n < pivot]
+    E = [n for n in arr if n == pivot]
+    G = [n for n in arr if n > pivot]
+
+    Lsort = quickSort(L)
+    Gsort = quickSort(G)
+
+    return Lsort + E + Gsort
+
+def getPivot(arr):
+    #p = arr[-1] # last element - not optimal for sorted lists
+    p = arr[randint(0, len(arr)-1)] # randomized, closer to O(n log n)
+    return p
+
+arr = list(map(int, '10 9 8 7 6 5 4 3 2 1'.split()))
 
 print(arr)
 print(mergeSortR(arr))
+print(quickSort(arr))
