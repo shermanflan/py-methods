@@ -36,6 +36,9 @@
     <Compile Include="crack\queue.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="crack\sortpy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="crack\stack.py">
       <SubType>Code</SubType>
     </Compile>
