@@ -33,6 +33,7 @@
     <Compile Include="crack\linkedlist.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="crack\mathtricks.py" />
     <Compile Include="crack\queue.py">
       <SubType>Code</SubType>
     </Compile>
