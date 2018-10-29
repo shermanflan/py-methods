@@ -31,3 +31,12 @@ class bitmath(object):
         newBit = (1 if val else 0) << ith
         return eraseBit | newBit
 
+    # TODO
+    def decimalToBinary(n):
+        pass
+
+    # TODO: Reverse a number using binary
+
+    # TODO: Add binary numbers
+
+    # TODO: Count 1's or 0's in a binary number

@@ -63,6 +63,8 @@ class linkedlist(object):
 
         return False
 
+    # TODO: Reverse
+
     def __str__(self): # like ToString
         tmp = self.head
         s = ''

@@ -1,3 +1,14 @@
-from itertools import product
+stopwords = ['a', 'the', 'and', 'an', 'is']
 
-print(list(map(product, [1, 2, 4])))
+test = 'this Is a tEst'.lower()
+
+words = test.split()
+
+words[0] = words[0].title()
+
+for i in range(1, len(words)):
+    if words[i] not in stopwords:
+        words[i] = words[i].title()
+
+print(' '.join(words))
+
