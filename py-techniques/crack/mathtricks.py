@@ -11,6 +11,19 @@ def reverseNum(n):
     
     return reverse
 
+def splitNumber(n, splitAt):
+
+    digit, n2, i = None, 0, 0
+
+    while n > 0 and i < splitAt:
+        digit = n%10
+        n2 = digit*pow(10, i) + n2 # move digit to the left
+
+        n //= 10
+        i += 1
+
+    return (n, n2)
+
 def lcm(a, b):
     """
     https://en.wikipedia.org/wiki/Least_common_multiple

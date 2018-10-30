@@ -1,14 +1,20 @@
-stopwords = ['a', 'the', 'and', 'an', 'is']
+from itertools import combinations, permutations, combinations_with_replacement
 
-test = 'this Is a tEst'.lower()
+def splitNumber(n, splitAt):
 
-words = test.split()
+    d, n2, i = None, 0, 0
 
-words[0] = words[0].title()
+    while n > 0 and i < splitAt:
+        d = n%10
+        n2 = d*pow(10, i) + n2
+    
+        print(d, n, n2, i)
 
-for i in range(1, len(words)):
-    if words[i] not in stopwords:
-        words[i] = words[i].title()
+        n //= 10
 
-print(' '.join(words))
+        i += 1
 
+    return (n, n2)
+
+n, splitAt = 123456789, 5
+print(splitNumber(n, splitAt))
