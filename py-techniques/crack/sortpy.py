@@ -1,7 +1,20 @@
 from random import randint
 
+# Good for mostly sorted or small arrays -O(n^2)
+def insertionSort(arr):
+    L = len(arr)
+    for i in range(1, L):
+        j = i
+        while j > 0 and arr[j] < arr[j-1]:
+            arr[j], arr[j-1] = arr[j-1], arr[j]
+            print(arr)
+            j -= 1
+
+    return arr
+
 # Recursive form
 # Iterative form is also possible
+# O(n log n)
 def mergeSortR(arr):
     if len(arr) <= 1:
         return arr
@@ -33,6 +46,7 @@ def mergeSortR(arr):
 
 # Recursive
 # Can also be done in place, iteratively
+# O(n log n)
 def quickSort(arr):
     if len(arr) <= 1:
         return arr
@@ -56,5 +70,6 @@ def getPivot(arr):
 arr = list(map(int, '10 9 8 7 6 5 4 3 2 1'.split()))
 
 print(arr)
-print(mergeSortR(arr))
-print(quickSort(arr))
+#print(mergeSortR(arr))
+#print(quickSort(arr))
+print(insertionSort(arr))
