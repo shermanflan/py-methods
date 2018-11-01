@@ -1,44 +1,24 @@
-class LLNode(object):
-    def __init__(self, name):
-        super().__init__()
-        self.name = name
-        self.next = None
+from itertools import permutations, combinations
 
-    def __str__(self):
-        return self.name
+def separateNumbers(s):
+    # Complete this function
+    if s[0] == s:
+        print('NO')
+        return
 
-A = LLNode('one')
-B = LLNode('two')
-C = LLNode('three')
-D = LLNode('four')
-E = LLNode('five')
+    for i in range(1, len(s)):
+        mystack = []
+        mystack.append(s[:i])
 
-A.next = B
-B.next = C
-C.next = D
-D.next = E
+        while len(''.join(mystack)) < len(s):
+            # Pop stack add 1, and then push result
+            mystack.append(str(int(mystack[-1]) + 1))
 
-def kth_to_last_node(k, n):
-    step = 0
+        print(f'{i}, {str(int(mystack[-1]) + 1)}, {mystack}')
+        if ''.join(mystack) == s:
+            print('YES', mystack[0])
+            break
+        if i == len(s) - 1:
+            print('NO')
 
-    # Go k steps forward
-    head = n
-    while head and step < k-1:
-        #print(head)
-        head = head.next
-        step += 1
-
-    #print('======={0}'.format(head))
-    if step < k-1:
-        raise Exception('Invalid k')
-
-    # Increment head and kth until end of list
-    kth = n
-    while head.next:
-        #print(head, kth)
-        kth = kth.next
-        head = head.next
-
-    return kth
-
-print(kth_to_last_node(2, A))
+print(separateNumbers('891011'))
