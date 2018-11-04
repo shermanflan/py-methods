@@ -30,6 +30,12 @@
     <Compile Include="crack\graph.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="crack\hashy.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="crack\heapy.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="crack\linkedlist.py">
       <SubType>Code</SubType>
     </Compile>
