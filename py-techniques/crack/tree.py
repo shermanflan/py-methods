@@ -32,6 +32,15 @@ class BTreeNode(object):
     def __repr__(self):
         return str(self.name)
 
+class BST(object):
+    def __init__(self, node = None):
+        super().__init__()
+        self.root = Node
+
+    # To Do: Add, Remove, Find
+    # To Do: InOrder, PreOrder, PostOrder
+    # Try both iterative and recursive algos.
+
     @staticmethod
     def createBST(arr):
         ''' Given a sorted array (asc), build a minimal BST. '''

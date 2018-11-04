@@ -8,6 +8,10 @@ class node(object):
     def __str__(self): # like ToString
         return str(self.data)
 
+# Opt1: Adding and maintaining self.tail would make append more efficient.
+# Opt2: Adding and maintaining self.count would make size() more efficient.
+# Opt3: Add an enumerator using yied in a while loop.
+# Opt4: Create a doubly linked list class.
 class linkedlist(object):
     """Wrapper for node"""
     def __init__(self, data):
@@ -37,6 +41,7 @@ class linkedlist(object):
         tmp.next = data
         return tmp.next
 
+    # Opt1: Adding and tracking a prev variable simplifies logic
     def delete(self, data):
         if self.head.data == data:
             self.head = self.head.next

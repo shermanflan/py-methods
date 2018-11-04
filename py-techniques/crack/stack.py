@@ -2,6 +2,7 @@ class StackError(Exception):
     """Base class for exceptions in this module."""
     pass
 
+# Opt1: Use an array as the data container.
 class stack(object):
     """
     Uses a list as a stack. Pop/Append natively create
@@ -26,7 +27,7 @@ class stack(object):
 
     def peek(self):
         if self.__values:
-            return self.__values[0]
+            return self.__values[-1] # peek at top of stack
         else:
             raise StackError('peek(): Stack is empty!')
 
@@ -39,6 +40,9 @@ class stack(object):
     def size(self):
         return self.__size
 
+    # Implement __repr__ for any class you implement. This should be second nature. 
+    # Implement __str__ if you think it would be useful to have a string version 
+    # which errs on the side of more readability in favor of more ambiguity.
     def __repr__(self):
 
         return str(self.__values)

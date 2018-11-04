@@ -3,6 +3,8 @@ from collections import deque
 class QueueException(Exception):
     pass
 
+# Opt1: Use an array as the backingstore. Requires tracking head and tail
+# pointers. Queue can loop around as well.
 class queue(object):
     """
     Uses a deque for base data structure. More efficient than a list.
