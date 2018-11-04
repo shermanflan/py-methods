@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, OrderedDict, defaultdict
 
 # Lists are mutable
 # Deleting objects from the middle of a Python list is costly. 
@@ -190,3 +190,8 @@ heapq.heappush(a, 4)
 
 print(a[0])
 print(heapq.heappop(a), heapq.heappop(a), heapq.heappop(a), heapq.heappop(a))
+
+# Reduce
+from functools import reduce
+
+print(f'R:{reduce(lambda x,y: x+y, [1, 2, 3, 4, 5])}')
