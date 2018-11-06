@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 class node(object):
     """Singly linked"""
     def __init__(self, data):
@@ -54,6 +56,18 @@ class linkedlist(object):
                 break
 
             tmp = tmp.next
+    
+    @staticmethod
+    def findMiddle(node):
+        """ In one pass """
+        start = node
+        startplus2 = node
+
+        while startplus2 and startplus2.next:
+            start = start.next
+            startplus2 = startplus2.next.next
+
+        return start
 
     def isCycle(self):
         turtle = self.head
@@ -68,7 +82,42 @@ class linkedlist(object):
 
         return False
 
-    # TODO: Reverse
+    @staticmethod
+    def reverse(node):
+        """ In one pass, no stack 
+            See: https://www.geeksforgeeks.org/reverse-a-linked-list/
+        """
+
+        prevnode, currnode, nextnode = None, node, None
+
+        while currnode:
+            # Save next
+            nextnode = currnode.next
+
+            # Point to previous (initially None)
+            currnode.next = prevnode 
+
+            # Move forward
+            prevnode = currnode
+            currnode = nextnode
+
+        return prevnode
+
+    @staticmethod
+    def dedup(node):
+        """ In one pass, sorted or unsorted """        
+        prevnode, currnode = None, node
+        dups = defaultdict(int)
+
+        while currnode:
+            if currnode.val in dups: # seen before
+                prevnode.next = currnode.next # delete
+            else:
+                dups[currnode.val] += 1
+                prevnode = currnode # will be initialize here
+
+            currnode = prevnode.next
+        return node
 
     def __str__(self): # like ToString
         tmp = self.head
