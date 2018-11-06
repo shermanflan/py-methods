@@ -70,6 +70,9 @@
     <Compile Include="datetimepython.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jsony.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="numpython.py">
       <SubType>Code</SubType>
     </Compile>
