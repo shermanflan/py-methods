@@ -20,8 +20,8 @@ try:
     server_name, server_db = ('server1', 'db1')
 
     # "Sun 10 May 2015 13:54:36 -0700"
-    Created = datetime.datetime.strptime('2018-11-07 14:56:41', "%Y-%m-%d %H:%M:%S")
-
+    Created = datetime.datetime.now() #.strptime('2018-11-07 14:56:41', "%Y-%m-%d %H:%M:%S")
+    
     # Pass as parameters to defend against SQL injection.
     cursor.execute(qry, AR__c, company_name, server_name, server_db, Created)
     cnxn.commit()
