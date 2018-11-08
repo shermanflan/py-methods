@@ -5,6 +5,19 @@ from collections import defaultdict
 
 # TODO: Is the shared folder on the same data center host? If not, is it faster
 # to copy the file locally first? Test this.
+# Looks like O(n):
+# Parsed 5000 ultipro, 5 standalone customers (0:00:00.685321)
+# Parsed 5000 ultipro, 50 standalone customers (0:00:08.264015)
+# Parsed 5000 ultipro, 200 standalone customers (0:00:29.619718)
+# Parsed 5000 ultipro, 500 standalone customers (0:01:08.527680)
+# Parsed 5000 ultipro, 1000 standalone customers (0:02:25.470764)
+# Parsed 5000 ultipro, 2000 standalone customers (0:04:44.362290)
+# Loaded 5000 ultipro customers, 599 standalone location counts (0:00:00.762591)
+# Loaded 5000 ultipro customers, 5982 standalone location counts (0:00:01.395945)
+# Loaded 5000 ultipro customers, 23956 standalone location counts (0:00:03.749685)
+# Loaded 5000 ultipro customers, 59864 standalone location counts (0:00:08.115112)
+# Loaded 5000 ultipro customers, 119684 standalone location counts (0:00:16.097422)
+# Loaded 5000 ultipro customers, 239269 standalone location counts (0:00:35.737822)
 def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
 
     """ Using ijson library enables json iteration/streaming (constant memory footprint).

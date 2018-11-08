@@ -73,7 +73,7 @@ def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
     except Exception as e:
         print(e)
 
-def genJSON(ultinum=5, legacynum=5, filename=r"C:\Users\ricardogu\Desktop\test4.json"):
+def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     """ Build a json file.
     """
     ultipro = []
@@ -81,7 +81,7 @@ def genJSON(ultinum=5, legacynum=5, filename=r"C:\Users\ricardogu\Desktop\test4.
         ultipro.append({'company_name':f'RKO{i:06} Inc.', 'ar_number':f'AR{i:06}'})
 
     standalone = []
-    empcounts = [2000, 3000, 5000]
+    empcounts = [500, 2000, 3000, 5000, 10000]
     locations = ['Town1, TX, USA', 'Town1, FL, USA', 'Town1, NY, USA', 'Town1, CA, USA', 'Town1, AZ, USA', 'Town1, IL, USA', 'Town1, CO, USA', 'Town1, ONT, CAN', 'Town1, CAL, CAN', 'Town1, BC, CAN', 'Town1, BR, CAN', 'Town1, MON, CAN', 'Town1, DF, MEX', 'Town1, LYON, FRA', 'Quay1, SING, SGP', 
                  'Town2, TX, USA', 'Town2, FL, USA', 'Town2, NY, USA', 'Town2, CA, USA', 'Town2, AZ, USA', 'Town2, IL, USA', 'Town2, CO, USA', 'Town2, ONT, CAN', 'Town2, CAL, CAN', 'Town2, BC, CAN', 'Town2, BR, CAN', 'Town2, MON, CAN', 'Town2, DF, MEX', 'Town2, LYON, FRA', 'Quay2, SING, SGP', 
                  'Town3, TX, USA', 'Town3, FL, USA', 'Town3, NY, USA', 'Town3, CA, USA', 'Town3, AZ, USA', 'Town3, IL, USA', 'Town3, CO, USA', 'Town3, ONT, CAN', 'Town3, CAL, CAN', 'Town3, BC, CAN', 'Town3, BR, CAN', 'Town3, MON, CAN', 'Town3, DF, MEX', 'Town3, LYON, FRA', 'Quay3, SING, SGP', 
@@ -111,7 +111,8 @@ def genJSON(ultinum=5, legacynum=5, filename=r"C:\Users\ricardogu\Desktop\test4.
         with open(filename, "w", encoding="utf-8") as f:
             #print(json.dumps(doc, indent=4), file=f) # to string
             json.dump(obj=doc, fp=f, indent=4)
-
+        
+        print('File generated.')
     except Exception as e:
         print(f'Error: {e}')
 
