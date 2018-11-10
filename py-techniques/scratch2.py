@@ -1,25 +1,26 @@
 from collections import deque, defaultdict, Counter
 from itertools import permutations
+import math
+from crack.tree import BSTNode
 
-def permute(s, s2):
-    st1 = deque(s)
+def search(arr, val):
+    print(arr)
+    if not arr:
+        return -1
 
-    for i in range(1, len(s) + 1):
-        st1.rotate(i)
-        tmpr = ''.join(st1)
-        print(tmpr)
-        if tmpr == s2:
-            return True
+    mid = len(arr)//2
 
-    return False
+    if val == arr[mid]:
+        return (mid, val)
+    elif val < arr[mid]:
+        return search(arr[0:mid], val)
+    else:
+        return search(arr[mid+1:], val)
 
 def main():
 
-    s1 = 'amazon'
-    s2 = 'zonama'
-    
-    print(permute(s1, s2))   
-    
+    print(search([1, 2, 3, 4, 5, 6, 7, 8, 9], 10))
+
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
     main()
