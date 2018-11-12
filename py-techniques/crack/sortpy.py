@@ -11,6 +11,7 @@ def bubbleSort(arr):
     while j > 0:
 
         swaps = 0
+        # Last j elements are already sorted
         for i in range(0, j-1):
             if arr[i] > arr[i+1]:
                 swaps += 1
@@ -24,15 +25,24 @@ def bubbleSort(arr):
     return arr
 
 # Good for mostly sorted or small arrays -O(n^2)
+# Like sorting a deck of cards.
 def insertionSort(arr):
     """ In place sort """
-    L = len(arr)
-    for i in range(1, L):
-        j = i
-        while j > 0 and arr[j] < arr[j-1]:
-            arr[j], arr[j-1] = arr[j-1], arr[j]
+    # Traverse through 1 to len(arr) 
+    for i in range(1, len(arr)): 
+  
+        key = arr[i] 
+  
+        # Move elements of arr[0..i-1], that are 
+        # greater than key, to one position ahead 
+        # of their current position 
+        j = i-1
+        while j >= 0 and key < arr[j] : 
+            arr[j+1] = arr[j] 
             j -= 1
 
+        arr[j+1] = key
+        
     return arr
 
 # Selection Sort: find the smallest item and swap it to the
@@ -66,27 +76,33 @@ def mergeSortR(arr):
     S1 = mergeSortR(arr[:mid])
     S2 = mergeSortR(arr[mid:])
 
-    merge = []
-    pos1 = pos2 = 0
+    # Can reuse input array for merge
+    k = pos1 = pos2 = 0
 
     while pos1 < len(S1) and pos2 < len(S2):
         if S1[pos1] <= S2[pos2]:
-            merge.append(S1[pos1])
+            arr[k] = S1[pos1]
             pos1 += 1
         else:
-            merge.append(S2[pos2])
+            arr[k] = S2[pos2]
             pos2 += 1
+
+        k += 1
     
     # Only 1 element difference, at most?
-    if pos1 < len(S1):
-        merge.extend(S1[pos1:])
-    elif pos2 < len(S2):
-        merge.extend(S2[pos2:])
+    while pos1 < len(S1):
+        arr[k] = S1[pos1]
+        k += 1
+        pos1 += 1
+
+    while pos2 < len(S2):
+        arr[k] = S2[pos2:]
+        k += 1
+        pos2 += 1
         
-    return merge
+    return arr
 
 # Recursive
-# Can also be done in place, iteratively
 # O(n log n)
 def quickSort(arr):
     if len(arr) <= 1:
@@ -108,11 +124,94 @@ def getPivot(arr):
     p = arr[randint(0, len(arr)-1)] # randomized, closer to O(n log n)
     return p
 
-arr = list(map(int, '10 9 8 7 6 5 4 3 2 1'.split()))
+# Function takes last element as pivot, 
+# places the pivot element at its correct 
+# position in sorted array, and places all 
+# smaller (smaller than pivot) to left of 
+# pivot and all greater elements to right 
+# of pivot 
+def partition(arr, low, high): 
+    i = (low - 1)         # index of smaller element 
+    pivot = arr[high]     # pivot 
+  
+    for j in range(low, high): 
+  
+        # If current element is smaller  
+        # than or equal to pivot 
+        if arr[j] <= pivot: 
+          
+            # increment index of 
+            # smaller element 
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i] 
+        
+    arr[i + 1], arr[high] = arr[high], arr[i + 1] 
+    return (i + 1) 
+  
+def quickSortI(arr, l, h): 
+    """ Iterative implementation using a stack. """  
+    stack = [] 
+  
+    # push initial values of l and h to stack 
+    stack.append(l) 
+    stack.append(h) 
+  
+    # Keep popping from stack while is not empty 
+    while stack: 
+  
+        # Pop h and l 
+        h = stack.pop()
+        l = stack.pop()
+  
+        # Set pivot element at its correct position in 
+        # sorted array 
+        p = partition(arr, l, h) 
+  
+        # If there are elements on left side of pivot, 
+        # then push left side to stack 
+        if p-1 > l: 
+            stack.append(l) 
+            stack.append(p - 1)
+  
+        # If there are elements on right side of pivot, 
+        # then push right side to stack 
+        if p+1 < h: 
+            stack.append(p + 1)
+            stack.append(h) 
+
+def bucketSort(array, bucketSize=10):
+    """ Works well when data is evenly distributed.
+    """
+    if len(array) == 0:
+        return array
+
+    # Determine minimum and maximum values
+    minValue = min(array)
+    maxValue = max(array)
+
+    # Initialize buckets
+    bucketCount = math.floor((maxValue - minValue) / bucketSize) + 1 # evenly
+    buckets = [[] for _ in range(bucketCount)]
+
+    # Distribute input array values into buckets
+    for i in range(0, len(array)):
+        buckets[math.floor((array[i] - minValue) / bucketSize)].append(array[i])
+
+    # Sort buckets and place back into input array
+    array = []
+    for i in range(0, len(buckets)):
+        buckets[i].sort()
+        array.extend(buckets[i])
+
+    return array
+
+
+arr = list(map(int, '50 40 30 20 10 9 8 7 6 5 4 3 2 1'.split()))
 
 print(arr)
 #print(mergeSortR(arr))
 #print(quickSort(arr))
 #print(insertionSort(arr))
 #print(bubbleSort(arr))
-print(selectionSort(arr))
+#print(selectionSort(arr))
+print(bucketSort(arr))
