@@ -182,6 +182,22 @@ class BSTNode(object):
         return root
 
     @staticmethod
+    def createBST2(nums):
+        # Time: O(n)
+        # Space: O(n) in the case of skewed binary tree.
+        # Slicing the array is expensive. It is better to pass 
+        # the left and right bounds into recursive calls instead.
+        def convert(left, right):
+            if left > right:
+                return None
+            mid = (left + right) // 2
+            node = TreeNode(nums[mid])
+            node.left = convert(left, mid - 1)
+            node.right = convert(mid + 1, right)
+            return node
+        return convert(0, len(nums) - 1)
+    
+    @staticmethod
     def isBST(root, lo = -math.inf, hi = math.inf):
         ''' 
         Check if a tree is a binary search tree. Uses recursive
