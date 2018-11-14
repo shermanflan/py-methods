@@ -20,7 +20,6 @@ def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
             
             # Use this to get prefix for the json elements.
             parsed = ijson.parse(f) # returns iterator
-            #print('\n'.join(list(parsed)))
 
             for pre, evt, val in parsed: # returns all (prefix, event, value)
                 if (pre, evt) == ('server_db', 'string'):
