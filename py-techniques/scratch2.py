@@ -5,39 +5,12 @@ from crack.tree import BSTNode
 
 
 def main():
+    s = 'XO'
 
-    s = '{[ []] ]'
-    tokens = s.replace(' ', '')
-    tokens = list(tokens)
+    base = len(s)
+    result = []
 
-    brace = []
-
-    for b in tokens:
-
-        if b in ('{', '[', '('):
-            brace.append(b)
-        elif b == ')':
-            if brace[-1] == '(':
-                brace.pop()
-            else:
-                print(False)
-                break
-        elif b == ']':
-            if brace[-1] == '[':
-                brace.pop()
-            else:
-                print(False)
-                break
-        elif b == '}':
-            if brace[-1] == '{':
-                brace.pop()
-            else:
-                print(False)
-                break
-        else:
-            raise Exception('Invalid symbol!')
-    else:
-        print(True)
+    print(result)
 
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
