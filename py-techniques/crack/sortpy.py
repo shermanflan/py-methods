@@ -26,23 +26,20 @@ def bubbleSort(arr):
 
 # Good for mostly sorted or small arrays -O(n^2)
 # Like sorting a deck of cards.
-def insertionSort(arr):
+def insertionSort(arr, debug=False):
     """ In place sort """
-    # Traverse through 1 to len(arr) 
+
     for i in range(1, len(arr)): 
   
-        key = arr[i] 
-  
-        # Move elements of arr[0..i-1], that are 
-        # greater than key, to one position ahead 
-        # of their current position 
-        j = i-1
-        while j >= 0 and key < arr[j] : 
-            arr[j+1] = arr[j] 
+        # Move out of order elements to the front. 
+        j = i
+        while j > 0 and arr[j] < arr[j-1]: 
+            arr[j], arr[j-1] = arr[j-1], arr[j] # swap
             j -= 1
-
-        arr[j+1] = key
         
+        if debug:
+            print(arr)
+
     return arr
 
 # Selection Sort: find the smallest item and swap it to the
@@ -211,7 +208,7 @@ arr = list(map(int, '50 40 30 20 10 9 8 7 6 5 4 3 2 1'.split()))
 print(arr)
 #print(mergeSortR(arr))
 #print(quickSort(arr))
-#print(insertionSort(arr))
+print(insertionSort(arr, debug=True))
 #print(bubbleSort(arr))
 #print(selectionSort(arr))
-print(bucketSort(arr))
+#print(bucketSort(arr))
