@@ -3,9 +3,32 @@ import ijson
 import pyodbc
 from datetime import datetime
 from collections import defaultdict
+import os
+import shutil
 
 # TODO: Is the shared folder on the same data center host? If not, is it faster
 # to copy the file locally first? Test this.
+def pickTopNFiles(n, src, dst):
+    """
+    Selects the top n files by date descending.
+    """
+    print(n, src, dst)
+    
+    try:
+
+        with os.scandir(path=src) as d:
+            for entry in d: # os.DirEntry
+                print(entry.path)
+                print(entry.stat().st_ctime) # stat_result
+                print(datetime.fromtimestamp(entry.stat().st_ctime))
+                print(datetime.utcfromtimestamp(entry.stat().st_ctime))
+
+                if entry.is_file():
+                    shutil.copy2(src=entry.path, dst=dst) # preserves file metadata
+
+    except OSError as e:
+        print(e)
+
 def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
 
     """ Using ijson library enables json iteration/streaming (constant memory footprint).
@@ -106,6 +129,8 @@ def dbLoad(server_db, server_name, ultipro, standalone):
 def main():
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('--srcdir', help='Specifies the source directory containing import files')
+    parser.add_argument('--dstdir', help='Specifies the target directory for placing import files')
     parser.add_argument('--file', help='Specifies the json file to import')
     parser.add_argument('--db', help='Specifies the database connection string')
     args = parser.parse_args()
@@ -113,6 +138,9 @@ def main():
     if args.file:
         #if args.db:
         parseiJSON(filename=args.file)
+    elif args.srcdir and args.dstdir:
+
+        pickTopNFiles(1, src=args.srcdir, dst=args.dstdir)
 
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
