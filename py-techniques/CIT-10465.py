@@ -79,24 +79,19 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     # Pass as parameters to defend against SQL injection. Also, supports plan reuse.
     cnxnstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=ScratchDB;Trusted_Connection=yes;'
     qryUlti = '''
-        INSERT INTO dbo.BreachImpact(AR__c, Source, Created, CreatedBy)
-        VALUES(?, ?, ?, SYSTEM_USER)
+        INSERT INTO dbo.BreachImpact(AR__c, server_name, server_db, Source, Created, CreatedBy)
+        VALUES(?, ?, ?, ?, ?, SYSTEM_USER)
     '''
     qryLegacy = '''
-        INSERT INTO dbo.BreachImpact(AR__c, company_name, location, EECount, Source, Created, CreatedBy)
-        VALUES(?, ?, ?, ?, ?, ?, SYSTEM_USER)
+        INSERT INTO dbo.BreachImpact(AR__c, company_name, server_name, server_db, location, EECount, Source, Created, CreatedBy)
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSTEM_USER)
     '''
-    qryMeta = '''
-        UPDATE dbo.BreachImpact
-            SET server_name = ?
-                , server_db = ?
-        WHERE   Source = ?
-    '''
+
     server_name = server_db = None
     ultipro = standalone = 0
     tmpCo = tmpAR = tmpEmpInfo = None
     created = datetime.now()
-    p = PurePath(filename).name
+    source = PurePath(filename).name
 
     try:
         # TODO: Which is faster?
@@ -104,6 +99,7 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
         #cnxn = pyodbc.connect(cnxnstr)
         cursor = cnxn.cursor()
 
+        # First, scan server metadata.
         with open(filename, "r", encoding="utf-8") as f:
             
             # Use this to get prefix for the json elements.
@@ -112,11 +108,22 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
             for pre, evt, val in parsed: # returns all (prefix, event, value)
                 if (pre, evt) == ('server_db', 'string'):
                     server_db = val
+
                 elif (pre, evt) == ('server_name', 'string'):
                     server_name = val
-                elif (pre, evt) == ('ultipro.item.ar_number', 'string'):
+
+                if server_db and server_name:
+                    break
+
+        # Now, scan company metadata.
+        with open(filename, "r", encoding="utf-8") as f:
+            
+            parsed = ijson.parse(f)
+
+            for pre, evt, val in parsed:
+                if (pre, evt) == ('ultipro.item.ar_number', 'string'):
                     ultipro += 1
-                    cursor.execute(qryUlti, val, p, created)
+                    cursor.execute(qryUlti, val, server_name, server_db, source, created)
                 # New standalone co
                 elif (pre, evt) == ('standalone.item', 'start_map'):
                     tmpEmpInfo = defaultdict(int)
@@ -131,9 +138,7 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
                     if tmpEmpInfo: # ignore N/A
                         standalone += 1
                         for loc in tmpEmpInfo.keys():
-                            cursor.execute(qryLegacy, tmpAR, tmpCo, loc, tmpEmpInfo[loc], p, created)
-
-            cursor.execute(qryMeta, server_name, server_db, p)
+                            cursor.execute(qryLegacy, tmpAR, tmpCo, server_name, server_db, loc, tmpEmpInfo[loc], source, created)
 
         cnxn.commit()
         cursor.close()
