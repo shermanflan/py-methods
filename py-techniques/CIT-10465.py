@@ -17,6 +17,7 @@ def main():
     parser.add_argument('--arcdir', help='Specifies the archive directory for imported files')
     parser.add_argument('--file', help='Specifies the json file to import')
     args = parser.parse_args()
+    logging.config.dictConfig(getLogConfig())
 
     if args.file:
         parseiJSONDb(filename=args.file)
@@ -29,7 +30,6 @@ def pickFiles(src, arc):
     """
     Processes all files in the source and then archives.
     """
-    logging.config.dictConfig(getLogConfig())
     newfiles = []
     
     try:
@@ -79,11 +79,11 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     # Pass as parameters to defend against SQL injection. Also, supports plan reuse.
     cnxnstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=ScratchDB;Trusted_Connection=yes;'
     qryUlti = '''
-        INSERT INTO dbo.BreachImpact(AR__c, server_name, server_db, Source, Created, CreatedBy)
+        INSERT INTO dbo.PerceptUltiCo (AR__c, server_name, server_db, Source, Created, CreatedBy)
         VALUES(?, ?, ?, ?, ?, SYSTEM_USER)
     '''
     qryLegacy = '''
-        INSERT INTO dbo.BreachImpact(AR__c, company_name, server_name, server_db, location, EECount, Source, Created, CreatedBy)
+        INSERT INTO dbo.PerceptLegacyCo (AR__c, company_name, server_name, server_db, location, EECount, Source, Created, CreatedBy)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSTEM_USER)
     '''
 
@@ -126,6 +126,7 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
                     cursor.execute(qryUlti, val, server_name, server_db, source, created)
                 # New standalone co
                 elif (pre, evt) == ('standalone.item', 'start_map'):
+                    tmpCo = tmpAR = tmpEmpInfo = None
                     tmpEmpInfo = defaultdict(int)
                 elif (pre, evt) == ('standalone.item.employee_info.item.location', 'string'):
                     tmpEmpInfo[val] += 1
