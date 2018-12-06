@@ -130,6 +130,9 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
                     tmpEmpInfo = defaultdict(int)
                 elif (pre, evt) == ('standalone.item.employee_info.item.location', 'string'):
                     tmpEmpInfo[val] += 1
+                elif (pre, evt) == ('standalone.item.employee_info.item.location', 'null'):
+                    # Default null to 'Unknown'
+                    tmpEmpInfo['Unknown'] += 1
                 elif (pre, evt) == ('standalone.item.company_name', 'string'):
                     tmpCo = val
                 elif (pre, evt) == ('standalone.item.ar_number', 'string'):
