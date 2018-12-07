@@ -72,18 +72,18 @@ def pickFiles(src, arc):
 def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
 
     """ Using ijson library enables json iteration/streaming (constant memory footprint).
-        This implmentation loads to the database as it iterates ensuring a constant memory
+        This implementation loads to the database as it iterates ensuring a constant memory
         footprint.
     """
 
     # Pass as parameters to defend against SQL injection. Also, supports plan reuse.
     cnxnstr = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=localhost;DATABASE=ScratchDB;Trusted_Connection=yes;'
     qryUlti = '''
-        INSERT INTO dbo.PerceptUltiCo (AR__c, server_name, server_db, Source, Created, CreatedBy)
+        INSERT INTO dbo.PerceptUltiCo (ARNumber, CustomerServer, CustomerDatabase, Source, Created, CreatedBy)
         VALUES(?, ?, ?, ?, ?, SYSTEM_USER)
     '''
     qryLegacy = '''
-        INSERT INTO dbo.PerceptLegacyCo (AR__c, company_name, server_name, server_db, location, EECount, Source, Created, CreatedBy)
+        INSERT INTO dbo.PerceptLegacyCo (ARNumber, CustomerName, CustomerServer, CustomerDatabase, Location, EECount, Source, Created, CreatedBy)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?, SYSTEM_USER)
     '''
 
