@@ -5,10 +5,18 @@ from crack.tree import BSTNode
 import time
 from datetime import datetime
 
+
 def main():
-    
-    print(time.time())
-    print(datetime.fromtimestamp(time.time()))
+
+    n = 8
+    tmprow = [0] * n    
+    tmpDS = [[0] * n for _ in range(0, n)]
+
+    for i in range(0, n):
+        print(i)
+
+    print(tmpDS)
+
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
     main()
