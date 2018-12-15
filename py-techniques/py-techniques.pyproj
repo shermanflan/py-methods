@@ -80,6 +80,9 @@
     <Compile Include="dbasey.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="filey.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="jsony.py">
       <SubType>Code</SubType>
     </Compile>
@@ -98,7 +101,10 @@
     <Compile Include="scratch2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="skinny\travelingsalesman.py">
+    <Compile Include="skinny\sort\heapsort.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="skinny\sort\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="skinny\__init__.py">
@@ -108,6 +114,7 @@
   <ItemGroup>
     <Folder Include="crack\" />
     <Folder Include="skinny\" />
+    <Folder Include="skinny\sort\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.6" />
