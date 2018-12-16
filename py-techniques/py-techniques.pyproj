@@ -101,6 +101,12 @@
     <Compile Include="scratch2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="skinny\sort\dstruct\heap.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="skinny\sort\dstruct\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="skinny\sort\heapsort.py">
       <SubType>Code</SubType>
     </Compile>
@@ -115,6 +121,7 @@
     <Folder Include="crack\" />
     <Folder Include="skinny\" />
     <Folder Include="skinny\sort\" />
+    <Folder Include="skinny\sort\dstruct\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.6" />
