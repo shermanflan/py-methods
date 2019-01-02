@@ -101,6 +101,15 @@
     <Compile Include="scratch2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="skinny\graph\dstruct\graph.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="skinny\graph\dstruct\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="skinny\graph\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="skinny\sort\dstruct\heap.py">
       <SubType>Code</SubType>
     </Compile>
@@ -120,6 +129,8 @@
   <ItemGroup>
     <Folder Include="crack\" />
     <Folder Include="skinny\" />
+    <Folder Include="skinny\graph\" />
+    <Folder Include="skinny\graph\dstruct\" />
     <Folder Include="skinny\sort\" />
     <Folder Include="skinny\sort\dstruct\" />
   </ItemGroup>
