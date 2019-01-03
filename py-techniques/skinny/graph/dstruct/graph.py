@@ -48,18 +48,18 @@ class graph(object):
         else:
             node1 = edgenode(v1)
             self.vertex[v1] = node1
-            self.nvertices += 1
+            #self.nvertices += 1
 
         if v2 in self.vertex:
             node2 = self.vertex[v2]
         else:
             node2 = edgenode(v2)
             self.vertex[v2] = node2
-            self.nvertices += 1
+            #self.nvertices += 1
         
         node1.neighbors.append(node2)
         self.degree[v1] += 1
-        self.nedges += 1
+        #self.nedges += 1
 
         # Also, add v2 to v1 edge.
         if not directed: 
@@ -79,14 +79,20 @@ class graph(object):
 
         while q:
             node = q.popleft()
-            print(f'BFS: {node}') # Process early
+            # Process early here
+            self.nvertices += 1 # some action
+            print(f'Vertex: {node}')
 
             for child in node.neighbors:
+                if child.state != NodeState.PROCESSED:
+                    # Process edge here (e.g. weight, distance, etc.)
+                    print(f'Edge: {node}-{child}')
+                    self.nedges += 1 # some action
                 if child.state == NodeState.UNDISCOVERED:
                     q.append(child)
                     child.state = NodeState.DISCOVERED
 
-            # Or, process late
+            # Or, process late here
             node.state = NodeState.PROCESSED
 
 if __name__ == '__main__':
@@ -102,7 +108,7 @@ if __name__ == '__main__':
             g.insertedge(v1, v2, g.directed)
 
         print(g)
-        print(f'V: {g.nvertices}')
-        print(f'E: {g.nedges}')
         print(f'out-D: {g.degree}')
         g.bfs('A')
+        print(f'V: {g.nvertices}')
+        print(f'E: {g.nedges}')
