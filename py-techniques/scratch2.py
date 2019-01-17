@@ -1,24 +1,107 @@
 import math
+from collections import deque
 
-def knapsack(nums, target):
+class Graph:
+    def __init__(self):
+        super().__init__()
+        self.storage = {}
 
-    def ksshelp(i, T):
-
-        if T == 0:
-            return True
-
-        if i < 0 or T < 0:
+    def add_vertex(self, id):
+        if id in self.storage:
             return False
+        self.storage[id] = []
+        return True
 
-         # i in set
-         # i not in set
+    def remove_vertex(self, id):
+        if id not in self.storage:
+            return False
+        del self.storage[id]
 
-        return ksshelp(i - 1, T - nums[i]) or ksshelp(i - 1, T)
+        # Also, remove references to id
+        for k in self.storage.keys():
+            if id in self.storage[k]:
+                self.storage[k].remove(id)
 
-    
-    
-    return ksshelp(len(nums) - 1, target)
+        return True
+
+    def add_edge(self, id1, id2, directed=True):
+        if id1 not in self.storage or id2 not in self.storage:
+            return False
+        self.storage[id1].append(id2)
+
+        if not directed:
+            self.add_edge(id2, id1, directed=True)
+
+        return True
+
+    def remove_edge(self, id1, id2):
+        if id1 not in self.storage:
+            return False
+        self.storage[id1].remove(id2)
+        return True
+
+    def is_vertex(self, id):
+        if id in self.storage:
+            return True
+        return False
+
+    def neighbors(self, id):
+        if id in self.storage:
+            return self.storage[id]
+
+    def bfs(self, id):
+        if not self.is_vertex(id):
+            raise Exception(f'Invalid vertix: {id}')
+
+        visited = set()
+        q = deque()
+        q.append(id)
+        visited.add(id)
+
+        while q:
+            cur = q.popleft()
+            print(cur)
+
+            for n in self.neighbors(cur):
+                if n not in visited:
+                    q.append(n)
+                    visited.add(n)
+
+    def dfs(self, id):
+        """
+        Iterative implementation
+        """
+        
+        if not self.is_vertex(id):
+            raise Exception(f'Invalid vertix: {id}')
+        
+        stack = []
+        visited = set()
+
+        stack.append(id)
+        visited.add(id)
+
+        while stack:
+            cur = stack.pop()
+            print(cur)
+
+            for n in self.neighbors(cur):
+                if n not in visited:
+                    stack.append(n) # like invoking a function recursively
+                    visited.add(n)
+
 
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
-    print(knapsack([1, 2, 5, 9, 10], 7))
+    graph = Graph()
+    graph.add_vertex(5)
+    graph.add_vertex(10)
+    graph.add_vertex(15)
+    graph.add_vertex(20)
+    graph.add_vertex(25)
+    graph.add_edge(5, 10, directed=False)
+    graph.add_edge(5, 15, directed=False)
+    graph.add_edge(5, 20, directed=False)
+    graph.add_edge(15, 25, directed=False)
+
+    graph.dfs(5)
