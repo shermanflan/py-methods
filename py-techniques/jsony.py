@@ -117,9 +117,10 @@ def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\
         print(f'Error: {e}')
 
 def main():
+    print('file generation')
+    #genJSON(ultinum=10000, legacynum=10000, filename=r"C:\Users\ricardogu\Desktop\TMP\test4.json")
     #parseJSON()
-    #parseiJSON()
-    genJSON()
+    parseiJSON(filename=r"C:\Users\ricardogu\Desktop\TMP\test4.json")
 
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
