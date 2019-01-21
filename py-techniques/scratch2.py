@@ -67,11 +67,10 @@ class Graph:
                     q.append(n)
                     visited.add(n)
 
-    def dfs(self, id):
+    def dfsIPre(self, id):
         """
-        Iterative implementation
+        Iterative implementation (pre-order)
         """
-        
         if not self.is_vertex(id):
             raise Exception(f'Invalid vertix: {id}')
         
@@ -83,13 +82,62 @@ class Graph:
 
         while stack:
             cur = stack.pop()
-            print(cur)
+            print(cur) # pre-order
 
             for n in self.neighbors(cur):
                 if n not in visited:
                     stack.append(n) # like invoking a function recursively
                     visited.add(n)
 
+    def dfsIPost(self, id):
+        """
+        Iterative implementation (post-order)
+        """
+        if not self.is_vertex(id):
+            raise Exception(f'Invalid vertix: {id}')
+        
+        stack, results, visited = [], [], {}
+
+        stack.append(id)
+        visited[id] = 'pre' # visited but not processed
+
+        while stack:
+
+            cur = stack[-1] # peek
+
+            if visited[cur] == 'pre':
+                for n in self.neighbors(cur):
+                    if n not in visited:
+                        stack.append(n) # like invoking a function recursively
+                        visited[n] = 'pre'
+                visited[cur] = 'post' # fully processed
+            else:
+                cur = stack.pop()
+                results.append(cur) # post-order
+
+        return results
+
+    def dfsR(self, id):
+        """
+        Recursive implementation
+        """
+        if not self.is_vertex(id):
+            raise Exception(f'Invalid vertix: {id}')
+
+        visited = set()
+
+        def traverse(node):
+
+            visited.add(node)
+            print(node) # pre-order
+
+            for n in self.neighbors(node):
+                if n not in visited:
+                    traverse(n)
+
+            #print(node) # post-order
+
+        traverse(id)
 
 if __name__ == '__main__':
     # execute only if run as the entry point into the program
@@ -104,4 +152,7 @@ if __name__ == '__main__':
     graph.add_edge(5, 20, directed=False)
     graph.add_edge(15, 25, directed=False)
 
-    graph.dfs(5)
+    #graph.dfsIPre(20)
+    print('===================')
+    print(graph.dfsIPost(20))
+    #graph.dfsR(20)
