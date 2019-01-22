@@ -24,8 +24,6 @@ def main():
     elif args.srcdir and args.arcdir:
         pickFiles(src=args.srcdir, arc=args.arcdir)
 
-# TODO: Is the shared folder on the same data center host? If not, is it faster
-# to copy the file locally first? Test this.
 def pickFiles(src, arc):
     """
     Processes all files in the source and then archives.
@@ -94,9 +92,7 @@ def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     source = PurePath(filename).name
 
     try:
-        # TODO: Which is faster?
         cnxn = pyodbc.connect(cnxnstr, autocommit=False) # creates explicit txn
-        #cnxn = pyodbc.connect(cnxnstr)
         cursor = cnxn.cursor()
 
         # First, scan server metadata.

@@ -2,6 +2,10 @@ import json
 import ijson
 from random import choice
 from collections import defaultdict
+from datetime import datetime
+import argparse
+import os
+import psutil
 
 def parseJSON(filename=r"C:\Users\ricardogu\Desktop\test.json"):
 
@@ -18,43 +22,55 @@ def parseJSON(filename=r"C:\Users\ricardogu\Desktop\test.json"):
             ultipro = jsonObj['ultipro']
             standalone = jsonObj['standalone']
 
-            print(jsonObj)
             print(server)
             print(servername)
-            print(ultipro)
-            print(standalone)
+            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co')
 
     except Exception as e:
         print(e)
 
-# 
 def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
 
     """ Using ijson library allows streaming the json file.
     """
     try:
+
+        server_name = server_db = None
+        ultipro, standalone = [], []
+        tmpCo = tmpAR = tmpEmpInfo = None
+
+        # First, scan server metadata.
         with open(filename, "r", encoding="utf-8") as f:
             
             # Use this to get prefix for the json elements.
             parsed = ijson.parse(f) # returns iterator
-            #print('\n'.join(list(parsed)))
-
-            server_name = server_db = None
-            ultipro, standalone = [], []
-            tmpCo = tmpAR = tmpEmpInfo = None
 
             for pre, evt, val in parsed: # returns all (prefix, event, value)
                 if (pre, evt) == ('server_db', 'string'):
                     server_db = val
+
                 elif (pre, evt) == ('server_name', 'string'):
                     server_name = val
-                elif (pre, evt) == ('ultipro.item.ar_number', 'string'):
+
+                if server_db and server_name:
+                    break
+
+        with open(filename, "r", encoding="utf-8") as f:
+            
+            # Use this to get prefix for the json elements.
+            parsed = ijson.parse(f) # returns iterator
+
+            for pre, evt, val in parsed: # returns all (prefix, event, value)
+                if  (pre, evt) == ('ultipro.item.ar_number', 'string'):
                     ultipro.append(val)
                 # New standalone co
                 elif (pre, evt) == ('standalone.item', 'start_map'):
                     tmpEmpInfo = defaultdict(int)
                 elif (pre, evt) == ('standalone.item.employee_info.item.location', 'string'):
                     tmpEmpInfo[val] += 1
+                elif (pre, evt) == ('standalone.item.employee_info.item.location', 'null'):
+                    # Default null to 'Unknown'
+                    tmpEmpInfo['Unknown'] += 1
                 elif (pre, evt) == ('standalone.item.company_name', 'string'):
                     tmpCo = val
                 elif (pre, evt) == ('standalone.item.ar_number', 'string'):
@@ -66,22 +82,21 @@ def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
 
             print(server_db)
             print(server_name)
-            print(ultipro)
-            print(standalone)
-
+            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co')
 
     except Exception as e:
         print(e)
 
 def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\test4.json"):
-    """ Build a json file.
+    """ 
+    Build a sample JSON file.
     """
     ultipro = []
     for i in range(ultinum):
         ultipro.append({'company_name':f'RKO{i:06} Inc.', 'ar_number':f'AR{i:06}'})
 
     standalone = []
-    empcounts = [500, 2000, 3000, 5000, 10000]
+    empcounts = [500, 1000, 2000]
     locations = ['Town1, TX, USA', 'Town1, FL, USA', 'Town1, NY, USA', 'Town1, CA, USA', 'Town1, AZ, USA', 'Town1, IL, USA', 'Town1, CO, USA', 'Town1, ONT, CAN', 'Town1, CAL, CAN', 'Town1, BC, CAN', 'Town1, BR, CAN', 'Town1, MON, CAN', 'Town1, DF, MEX', 'Town1, LYON, FRA', 'Quay1, SING, SGP', 
                  'Town2, TX, USA', 'Town2, FL, USA', 'Town2, NY, USA', 'Town2, CA, USA', 'Town2, AZ, USA', 'Town2, IL, USA', 'Town2, CO, USA', 'Town2, ONT, CAN', 'Town2, CAL, CAN', 'Town2, BC, CAN', 'Town2, BR, CAN', 'Town2, MON, CAN', 'Town2, DF, MEX', 'Town2, LYON, FRA', 'Quay2, SING, SGP', 
                  'Town3, TX, USA', 'Town3, FL, USA', 'Town3, NY, USA', 'Town3, CA, USA', 'Town3, AZ, USA', 'Town3, IL, USA', 'Town3, CO, USA', 'Town3, ONT, CAN', 'Town3, CAL, CAN', 'Town3, BC, CAN', 'Town3, BR, CAN', 'Town3, MON, CAN', 'Town3, DF, MEX', 'Town3, LYON, FRA', 'Quay3, SING, SGP', 
@@ -107,21 +122,34 @@ def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\
     doc['standalone'] = standalone
 
     try:
-
         with open(filename, "w", encoding="utf-8") as f:
-            #print(json.dumps(doc, indent=4), file=f) # to string
             json.dump(obj=doc, fp=f, indent=4)
-        
-        print('File generated.')
     except Exception as e:
         print(f'Error: {e}')
 
 def main():
-    print('file generation')
-    #genJSON(ultinum=10000, legacynum=10000, filename=r"C:\Users\ricardogu\Desktop\TMP\test4.json")
-    #parseJSON()
-    parseiJSON(filename=r"C:\Users\ricardogu\Desktop\TMP\test4.json")
+    """"""
+    pass
 
 if __name__ == '__main__':
-    # execute only if run as the entry point into the program
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--filename', help='Specifies the json file to import')
+    args = parser.parse_args()
+
+    created, filename = datetime.now(), None
+
+    if args.filename:
+        filename = args.filename
+    else:
+        filename = r"C:\Users\ricardogu\Desktop\JSONData\test_A.json"
+
+    process = psutil.Process(os.getpid())
+    mem_before = process.memory_info().rss/1024/1024 # bytes to MB
+
+    #genJSON(ultinum=6000, legacynum=3200, filename=r"C:\Users\ricardogu\Desktop\JSONData\test_F.json")
+    parseJSON(filename)
+    #parseiJSON(filename)
+    mem_after = process.memory_info().rss/1024/1024 # bytes to MB
+    elapsed = datetime.now() - created
+    print(f'Processed {filename} in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+    input('Press enter to quit...')
