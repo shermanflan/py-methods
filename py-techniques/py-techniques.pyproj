@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CIT-10465.py">
+    <Compile Include="appy.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="codestructures.py">
