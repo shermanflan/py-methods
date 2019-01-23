@@ -9,8 +9,11 @@ import psutil
 
 def parseJSON(filename=r"C:\Users\ricardogu\Desktop\test.json"):
 
-    """ Using standard json library. Loads file into memory.
+    """ Using standard json library. Loads file into memory as a Python object tree.
     """
+    created, process = datetime.now(), psutil.Process(os.getpid())
+    mem_before = process.memory_info().rss/1024/1024 # bytes to MB
+
     try:
 
         with open(filename, "r", encoding="utf-8") as f:
@@ -29,10 +32,17 @@ def parseJSON(filename=r"C:\Users\ricardogu\Desktop\test.json"):
     except Exception as e:
         print(e)
 
+    mem_after = process.memory_info().rss/1024/1024 # bytes to MB
+    elapsed = datetime.now() - created
+    print(f'Processed {filename} via inmemory in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+
 def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
 
     """ Using ijson library allows streaming the json file.
     """
+    created, process = datetime.now(), psutil.Process(os.getpid())
+    mem_before = process.memory_info().rss/1024/1024 # bytes to MB
+
     try:
 
         server_name = server_db = None
@@ -87,6 +97,10 @@ def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
     except Exception as e:
         print(e)
 
+    mem_after = process.memory_info().rss/1024/1024 # bytes to MB
+    elapsed = datetime.now() - created
+    print(f'Processed {filename} via stream in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+
 def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     """ 
     Build a sample JSON file.
@@ -134,22 +148,21 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--filename', help='Specifies the json file to import')
+    parser.add_argument('--mode', help='Specifies the import mode (stream or inmemory)')
     args = parser.parse_args()
 
-    created, filename = datetime.now(), None
+    filename = None
 
     if args.filename:
         filename = args.filename
     else:
         filename = r"C:\Users\ricardogu\Desktop\JSONData\test_A.json"
 
-    process = psutil.Process(os.getpid())
-    mem_before = process.memory_info().rss/1024/1024 # bytes to MB
-
     #genJSON(ultinum=6000, legacynum=3200, filename=r"C:\Users\ricardogu\Desktop\JSONData\test_F.json")
-    parseJSON(filename)
-    #parseiJSON(filename)
-    mem_after = process.memory_info().rss/1024/1024 # bytes to MB
-    elapsed = datetime.now() - created
-    print(f'Processed {filename} in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+
+    if args.mode == 'inmemory':
+        parseJSON(filename)
+    else:
+        parseiJSON(filename)
+
     input('Press enter to quit...')
