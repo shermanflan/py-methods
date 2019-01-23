@@ -9,7 +9,7 @@ from pathlib import Path, PurePath
 import re
 import logging.config
 
-# Entry point
+# Example of a script with logging, arguments, and db access.
 def main():
 
     parser = argparse.ArgumentParser()
@@ -66,7 +66,6 @@ def pickFiles(src, arc):
 
     logging.shutdown()
 
-# TODO: If loads are too slow, replace this with a CSV export + BULK import.
 def parseiJSONDb(filename=r"C:\Users\ricardogu\Desktop\test4.json"):
 
     """ Using ijson library enables json iteration/streaming (constant memory footprint).
