@@ -28,8 +28,8 @@ namespace JSONStreamer
             Dictionary<string, int> tmpLoco = null;
             string tmpCo = null, tmpAR = null;
             string source = Path.GetFileName(file);
-            Stopwatch timer = new Stopwatch();
 
+            Stopwatch timer = new Stopwatch();
             timer.Start();
 
             // Scan server metadata first.
