@@ -10,13 +10,6 @@ using System.Diagnostics;
 
 namespace JSONStreamer
 {
-    public class LegacyCo
-    {
-        public string ARNumber { get; set; }
-        public string CompanyName { get; set; }
-        public Dictionary<string, int> Locations { get; set; }
-    }
-
     public class Program
     {
         /*
@@ -95,20 +88,27 @@ namespace JSONStreamer
                         // End legacy company.
                         else if (j.TokenType == JsonToken.EndObject
                             && j.Path.StartsWith("standalone") && j.Depth == 2) {
-                            var tmpLeg = new LegacyCo {
+                            legacies.Add(new LegacyCo
+                            {
                                 ARNumber = tmpAR
-                                , CompanyName = tmpCo
-                                , Locations = tmpLoco
-                            };
-                            legacies.Add(tmpLeg);
+                                ,CompanyName = tmpCo
+                                ,Locations = tmpLoco
+                            });
                         }
                     }
                 }
             }
 
             timer.Stop();
-            Console.WriteLine("Inserted {0} ultipro companies, {1} legacy locations", ulties.Count, legacies.Count);
+            Console.WriteLine("Parsed {0} ultipro companies, {1} legacy locations", ulties.Count, legacies.Count);
             Console.WriteLine("Elapsed: {0}", timer.Elapsed.ToString());
         }
+    }
+
+    public class LegacyCo
+    {
+        public string ARNumber { get; set; }
+        public string CompanyName { get; set; }
+        public Dictionary<string, int> Locations { get; set; }
     }
 }

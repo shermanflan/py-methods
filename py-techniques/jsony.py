@@ -25,16 +25,14 @@ def parseJSON(filename=r"C:\Users\ricardogu\Desktop\test.json"):
             ultipro = jsonObj['ultipro']
             standalone = jsonObj['standalone']
 
-            print(server)
-            print(servername)
-            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co')
+            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co ({server}, {servername})')
 
     except Exception as e:
         print(e)
 
     mem_after = process.memory_info().rss/1024/1024 # bytes to MB
     elapsed = datetime.now() - created
-    print(f'Processed {filename} via inmemory in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+    print(f'Parsed {filename} via inmemory\n elapsed: {elapsed}\n memory before: {mem_before}\n memory after: {mem_after}\n consumed: {mem_after - mem_before}')
 
 def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
 
@@ -90,16 +88,14 @@ def parseiJSON(filename=r"C:\Users\ricardogu\Desktop\test3.json"):
                     if tmpEmpInfo: # ignore N/A
                         standalone.append([tmpCo, tmpAR, tmpEmpInfo])
 
-            print(server_db)
-            print(server_name)
-            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co')
+            print(f'Processed {len(ultipro)} ultipro co, {len(standalone)} standalone co ({server_db}, {server_name})')
 
     except Exception as e:
         print(e)
 
     mem_after = process.memory_info().rss/1024/1024 # bytes to MB
     elapsed = datetime.now() - created
-    print(f'Processed {filename} via stream in {elapsed}, memory before: {mem_before}, memory after: {mem_after}, consumed: {mem_after - mem_before}')
+    print(f'Parsed {filename} via inmemory\n elapsed: {elapsed}\n memory before: {mem_before}\n memory after: {mem_after}\n consumed: {mem_after - mem_before}')
 
 def genJSON(ultinum=5000, legacynum=2000, filename=r"C:\Users\ricardogu\Desktop\test4.json"):
     """ 
