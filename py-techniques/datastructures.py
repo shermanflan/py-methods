@@ -27,8 +27,8 @@ print(days[0:7:2])
 daysdays = [days, days]
 daysdays.insert(0, 'january') # slower than append (b/c data movement / O(n**2) )
 daysdays.append(['may']) # modifies source list, '+' creates new list / O(n)
-daysdays.extend(['june', 'july']) # combines -- faster than sum(lists, [])
-daysdays += ['august', 'september'] # like extend
+daysdays.extend(['june', 'july']) # combines -- faster than '+' because modifies source list
+daysdays += ['august', 'september'] # + creates new list
 
 del daysdays[2] # also works for slices
 del daysdays[-1]
@@ -87,6 +87,8 @@ fruit = {
     'apple': 'red',
     'banana': 'yellow',
     'orange': 'orange',
+    'blue': 'pomelo',
+    'yellow': 'durian'
     }
 
 list = [['test', 1], ['test2', 2], ['test3', 3]]
@@ -100,6 +102,8 @@ dict3 = dict2.copy() # new copy
 
 dict2.update(list2) # merge dictionaries
 del fruit["apple"]
+val1 = fruit.pop('yellow') # also deletes
+print(val1)
 
 print(fruit)
 print(dict2)
