@@ -89,6 +89,9 @@
     <Compile Include="numpython.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="pandasy-df.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pandasy.py">
       <SubType>Code</SubType>
     </Compile>
