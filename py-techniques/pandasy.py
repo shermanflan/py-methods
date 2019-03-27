@@ -85,3 +85,11 @@ obj11 = pd.Series(range(5), index=['a', 'a', 'b', 'b', 'c'])
 
 if not obj11.index.is_unique:
     print(f"{obj11['a']}!") # returns all elements matching index
+
+# More functions
+obj12 = pd.Series(['c', 'a', 'd', 'a', 'a', 'b', 'b', 'c', 'c'])
+print(f"Unique\n{obj12.unique()}") # takes distinct
+print(f"Counts\n{obj12.value_counts()}") # like Counter
+print(f"Is In\n{obj12.isin(['a', 'b'])}") # check membership
+unique_vals = pd.Series(['c', 'b', 'a'])
+print(f"Get Index\n{pd.Index(unique_vals).get_indexer(obj12)}") # Does a lookup against unique_vals

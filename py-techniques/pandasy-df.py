@@ -88,10 +88,10 @@ print(f"df8i\n{frame8}")
 
 # Selection using LOC (by label), ILOC (by integer)
 print(f"df8j\n{frame8.loc['Colorado', ['two', 'three']]}") # 1 col, 2 rows
+print(f"df8m\n{frame8.loc[:'Utah', 'two']}") # slicing rows, single column
 print(f"df8k\n{frame8.iloc[1, [1, 2]]}") # equivalent
 print(f"df8l\n{frame8.iloc[2]}") # single col
-print(f"df8l\n{frame8.iloc[[1, 2], [3, 0, 1]]}") # multi-column, multi-row
-print(f"df8m\n{frame8.loc[:'Utah', 'two']}") # slicing rows, single column
+print(f"df8l\n{frame8.iloc[[1, 2], [3, 0, 1]]}") # multi-row, multi-col
 print(f"df8m\n{frame8.iloc[:, :3][frame8.three > 5]}") # slicing rows and cols, then predicate selection
 
 # Arithmetic
