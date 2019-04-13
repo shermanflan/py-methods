@@ -63,6 +63,7 @@ with open(csv_file, 'w', newline='') as csvfile:
         tmp_df['Well_Type'] = tmp_df['Well_Type'].map(lambda x: x.strip().upper())
 
         tmp_df = tmp_df.drop_duplicates(keep='last') # can also specify a set of columns via a list
+        # Or: tmp_df.unique()
         tmp_df.fillna({'Well_Status': 'UNKNOWN', 'Well_Type': 'UNKNOWN'}, inplace=True) # fill in missing values with a default
         tmp_df['Well_Type'].replace('', 'UNKNOWN', inplace=True) # replace blank value
         tmp_df['Spud'].replace('1900-01-01', '', inplace=True) # replace sentinel date

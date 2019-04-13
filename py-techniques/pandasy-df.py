@@ -8,6 +8,13 @@ data = {'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada', 'Texas']
 frame1 = pd.DataFrame(data)
 print(f"F1\n{frame1}")
 
+# Dataframe: list of lists, each list is a row sharing the same index.
+dataA = [[0, 1, 2], 
+         [3, 4, 5],
+         [6, 7, 8]]
+frameA = pd.DataFrame(dataA, columns= ['Col1', 'Col2', 'Col3'])
+print(f"F1A\n{frameA}")
+
 # Specify columns
 frame2 = pd.DataFrame(data, columns=['state', 'year', 'pop', 'newcol']) 
 print(f"F2\n{frame2.columns}")

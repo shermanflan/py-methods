@@ -4,7 +4,7 @@ import pyodbc as odbc
 
 file = r'C:\Users\rguzman\Desktop\Apartments.csv'
 
-apts = pd.read_csv(file)
+apts = pd.read_csv(file) #also, index_col=0
 
 print(f"{apts.index}")
 print(f"{apts.columns}")
