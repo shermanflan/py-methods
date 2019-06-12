@@ -38,6 +38,11 @@ print(float('10e5'))
 print(str(10))
 print(str(10e4))
 
+# Decimal
+import decimal
+
+print(f'Decimal: {decimal.Decimal("1.33")}')
+
 # Strings are immutable
 text = 'Hello\n' + ('World!' * 2)
 multi = '''Hello
