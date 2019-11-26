@@ -1,27 +1,15 @@
-# Test update 3 from ubuntu!
-# File harness
-try:
+if __name__ == "__main__":
 
-    with open("C:\\Users\\rguzman\\Desktop\\test.txt", "r", encoding="utf-8") as f:
-        n, m = map(int, f.readline().rstrip().split())
+    x = -1
+    print(f'x: {x:08b}')
+    print(f'(x<<(2+1): {x<<(2+1):08b}')
 
-        arr = map(int, f.readline().rstrip().split())
+    y = 1
+    print(f'y: {y:08b}')
+    print(f'(y<<6)-1: {(y<<6)-1:08b}')
 
-        A = set(map(int, f.readline().rstrip().split()))
-        B = set(map(int, f.readline().rstrip().split()))
+    z = 255
+    print(f'z: {z:08b}')
+    print(f'z&(y<<6)-1: {z & ((y<<6)-1):08b}')
 
-        #C = set(arr)
-        #A = A & C
-        #B = B & C
-        happy = 0
-
-        for n in arr:
-            if n in A:
-                happy += 1
-            elif n in B:
-                happy -= 1
-            
-        print(happy)
-
-except Exception as e:
-    print(e)
+    print(f'z&(x<<(2+1)): {z & (x<<(2+1)):08b}')
