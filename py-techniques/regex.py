@@ -71,3 +71,17 @@ else:
     print('Invalid password')
 
 # Substitution
+s = """AAABCCDDDD"""
+nn2 = r"""(?P<twoplus>(?P<single>[a-zA-Z])(?P=single){1,})"""
+re_nn2 = re.compile(nn2, flags=0)
+matched = re_nn2.finditer(s)
+
+for m in matched:
+    print(m)
+    print(m.group("single"))
+    print(m.start("twoplus"), m.end("twoplus"))
+    print(m.span("twoplus"))
+
+compressed = re_nn2.sub(lambda m: m.group("single")+str(len(m.group("twoplus"))), s)
+print(f'Sub: {compressed}')
+
