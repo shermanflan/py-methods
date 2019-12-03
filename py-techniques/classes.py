@@ -99,8 +99,3 @@ class BetterCountMissing(object):
 
 counter = BetterCountMissing()
 print(counter())
-
-# Use modules
-from crack import linkedlist
-
-print(linkedlist.node(7))

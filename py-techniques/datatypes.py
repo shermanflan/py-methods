@@ -39,6 +39,7 @@ print(str(10))
 print(str(10e4))
 
 # Binary
+# Can also use bin() to print binary repr
 x = -1
 print(f'x: {x:08b}')
 print(f'(x<<(2+1): {x<<(2+1):08b}')
