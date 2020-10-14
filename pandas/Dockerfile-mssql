@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+
+#ENV ACCEPT_EULA=
+#ENV SA_PASSWORD=
+#ENV MSSQL_PID=
+
+# Create app directory
+RUN mkdir -p /usr/src/sql
+WORKDIR /usr/src/sql
+
+# Bundle app source
+COPY ./database /usr/src/sql
+
+# Grant permissions for the script to be executable
+RUN chmod a+x /usr/src/sql/entrypoint.sh
+
+#EXPOSE 1433
+
+CMD ["/bin/bash", "./entrypoint.sh"] 

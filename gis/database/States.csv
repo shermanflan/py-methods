@@ -1,0 +1,59 @@
+State,API_Code,State_Code
+Alabama,01,AL
+Alaska,50,AK
+Arizona,02,AZ
+Arkansas,03,AR
+California,04,CA
+Colorado,05,CO
+Connecticut,06,CT
+Delaware,07,DE
+District of Columbia,08,DC
+Florida,09,FL
+Georgia,10,GA
+Hawaii,51,HI
+Idaho,11,ID
+Illinois,12,IL
+Indiana,13,IN
+Iowa,14,IA
+Kansas,15,KS
+Kentucky,16,KY
+Louisiana,17,LA
+Maine,18,ME
+Maryland,19,MD
+Massachusetts,20,MA
+Michigan,21,MI
+Minnesota,22,MN
+Mississippi,23,MS
+Missouri,24,MO
+Montana,25,MT
+Nebraska,26,NE
+Nevada,27,NV
+New Hampshire,28,NH
+New Jersey,29,NJ
+New Mexico,30,NM
+New York,31,NY
+North Carolina,32,NC
+North Dakota,33,ND
+Ohio,34,OH
+Oklahoma,35,OK
+Oregon,36,OR
+Pennsylvania,37,PA
+Rhode Island,38,RI
+South Carolina,39,SC
+South Dakota,40,SD
+Tennessee,41,TN
+Texas,42,TX
+Utah,43,UT
+Vermont,44,VT
+Virginia,45,VA
+Washington,46,WA
+West Virginia,47,WV
+Wisconsin,48,WI
+Wyoming,49,WY
+Alaska Offshore,55
+Pacific Coast Offshore,56
+Northern Gulf of Mexico,60
+Atlantic Coast Offshore,61
+Guam,GU
+Puerto Rico,PR
+Virgin Islands,VI

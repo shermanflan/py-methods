@@ -1,0 +1,36 @@
+# TODO: Peg the important libraries to specific versions.
+pyodbc
+pytest
+pandas
+numpy
+sqlalchemy
+psycopg2
+requests
+
+# The standard
+GDAL
+
+# Pythonic GDAL suite
+# Shapely (wraps GEOS - C++ port of JTS)
+# Fiona (wraps OGR - vector)
+# pyproj (wraps PROJ - projections, conversion)
+# Rasterio (wraps GDAL - raster)
+shapely[vectorized]
+fiona
+pyproj
+rasterio
+
+# Misc GIS
+# geopandas (wraps Shapely, Rtree)
+# geojson (convenience lib for working with geojson)
+# pyshp (convenience lib for working with shapefiles)
+geopandas
+Rtree  # for spatial indexing
+geojson
+pyshp
+
+# Only for dev/testing
+matplotlib
+jupyter
+descartes  # for matplotlib
+ipyleaflet  # for Jupyter

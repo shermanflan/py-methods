@@ -1,0 +1,7 @@
+adal
+flask
+flask-sqlalchemy
+gunicorn
+marshmallow
+marshmallow-sqlalchemy
+pyodbc

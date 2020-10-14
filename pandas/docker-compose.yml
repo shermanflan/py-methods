@@ -1,0 +1,26 @@
+version: "3"
+services:
+  sql-fabulous:
+    image: sql-fabulous
+    build:
+      context: .
+      dockerfile: Dockerfile-mssql
+    ports:
+      - 1433:1433
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=HelloWorld1
+      - MSSQL_PID=Developer
+  python-heinous:
+    image: python-heinous
+    build:
+      context: .
+      dockerfile: Dockerfile-python
+    ports:
+      - 8888:8888
+    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+    #command: ["python3.6", "main.py"]
+    depends_on:
+      - sql-fabulous
+    volumes: 
+      - ./pandas_methods/jupyter:/opt/pandas-service/local

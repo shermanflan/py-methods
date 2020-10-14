@@ -1,0 +1,46 @@
+version: "3"
+services:
+  # Public version
+  # See: https://hub.docker.com/r/mdillon/postgis/
+  # Interactive: psql -U postgres -d ScratchDB
+  # CLI: docker run --name postgistester -e POSTGRES_PASSWORD=HelloWorld1 \
+  #     -e POSTGRES_USER=sa -e POSTGRES_DB=ScratchDb -p 5432:5432 mdillon/postgis:11
+#  postgres-gis:
+#    image: mdillon/postgis:11
+#    ports:
+#      - "5432:5432"
+#    environment:
+#      - POSTGRES_PASSWORD=HelloWorld1
+#      - POSTGRES_USER=sa
+#      - POSTGRES_DB=ScratchDB
+  python-gis:
+    image: python-gis
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+#    depends_on:
+#      - postgres-gis
+    environment:
+      - MSSQL_DRIVER={ODBC Driver 17 for SQL Server}
+      - MSSQL_SERVER=
+      - MSSQL_DATABASE=
+      - MSSQL_UID=
+      - MSSQL_PWD=
+
+      - PG_SERVER=postgres-gis
+      - PG_DATABASE=ScratchDB
+      - PG_UID=sa
+      - PG_PWD=HelloWorld1
+
+      - DATA_DIR=/opt/diml-service/data
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    volumes:
+      - ~/GitHub-Personal/python-gis/database:/opt/diml-service/database
+      - ~/GitHub-Personal/python-gis/tests/data:/opt/diml-service/data
+      - ~/GitHub-Personal/python-gis/notebooks:/opt/diml-service/notebooks
