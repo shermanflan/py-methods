@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+#    postgres-db:
+#        image: postgres:13
+#        ports:
+#            - "5432:5432"
+#        environment:
+#            - POSTGRES_USER=sa
+#            - POSTGRES_PASSWORD=pwd
+#            - POSTGRES_DB=airflow
+    parse-address:
+        image: parse-address
+        build:
+            context: .
+            dockerfile: Dockerfile
+        entrypoint: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+#        command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+        ports:
+            - 8888:8888
+#        depends_on:
+#            - postgres-db
+#            - redis-kv
+#            - smtp-local
+        environment:
+            - AIRFLOW__CORE__LOGGING_LEVEL=INFO
+        volumes:
+            - ~/personal/github/parse-address/jupyter:/opt/parser-service/local

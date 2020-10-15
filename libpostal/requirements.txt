@@ -1,0 +1,7 @@
+# TODO: Install jupyter lab
+jupyter
+numpy
+pandas
+postal
+#psycopg2
+sqlalchemy
