@@ -14,6 +14,8 @@ services:
       - .env
     environment:
       - LOG_LEVEL=INFO
+      - JOB_PACKAGE_NAME=oracle/apps/ess/custom/Conversion/
+      - JOB_DEFINITION_NAME=BHSGLTBREP
       - LAKE_CONTAINER_NAME=enterprisedata
       - LAKE_FOLDER_PATH=Raw/BOX Reports
     volumes:
