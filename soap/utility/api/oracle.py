@@ -26,7 +26,7 @@ import utility.logging
 logger = logging.getLogger(__name__)
 
 
-class OracleFusion:
+class OracleFusionHook:
     def __init__(self):
         self.erp_client = None
         self.soap_client = None
@@ -182,7 +182,7 @@ class OracleFusion:
                     documents.append(document)
 
         docs_df = pd.DataFrame(documents)
-
+        file_paths = []
         if docs_df.shape[0] > 0:
 
             for attach in response['Service']['Document']['File']:
@@ -197,7 +197,10 @@ class OracleFusion:
                 if content_type == 'application/zip':
                     with ZipFile(tmp_path) as z:
                         z.extractall(path=output_folder)
+                        file_paths.extend(z.namelist())
+                else:
+                    file_paths.append(tmp_path)
 
-            return docs_df
+            return docs_df, file_paths
         else:
             raise Exception("Document does not exist")
