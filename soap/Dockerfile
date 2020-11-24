@@ -30,7 +30,7 @@ RUN pip3 install -r ${APP_HOME}/requirements.txt \
     && rm /${APP_HOME}/requirements.txt \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --chown=soap_service:soap_service ./client ${APP_HOME}/client
+COPY --chown=soap_service:soap_service ./utility ${APP_HOME}/client
 COPY --chown=soap_service:soap_service ./main.py ${APP_HOME}
 
 USER soap_service

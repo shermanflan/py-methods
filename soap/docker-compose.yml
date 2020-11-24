@@ -5,18 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - 8888:8888
-    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
-#    depends_on:
-#      - redis-kv
+#    ports:
+#      - 8888:8888
+#    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
     env_file:
       - .env
     environment:
-      - LOG_LEVEL=INFO
-      - JOB_PACKAGE_NAME=oracle/apps/ess/custom/Conversion/
-      - JOB_DEFINITION_NAME=BHSGLTBREP
+      - LOG_LEVEL=DEBUG
+#      - JOB_PACKAGE_NAME=oracle/apps/ess/custom/Conversion/
+#      - JOB_DEFINITION_NAME=BHSGLTBREP
+      - JOB_PACKAGE_NAME=oracle/apps/ess/custom/Custom/
+      - JOB_DEFINITION_NAME=BHSTESTUCM
       - LAKE_CONTAINER_NAME=enterprisedata
-      - LAKE_FOLDER_PATH=Raw/BOX Reports
+      - LAKE_FOLDER_PATH=Raw/Fusion
     volumes:
       - ./jupyter:/opt/soap_service/local
