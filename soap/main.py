@@ -1,43 +1,21 @@
-from datetime import datetime
 import io
 import json
 import logging
+import os
 from tempfile import TemporaryDirectory
-import uuid
-
-from azure.eventgrid import EventGridClient
-from azure.core.exceptions import (ResourceNotFoundError,
-                                   ResourceExistsError)
-from azure.storage.filedatalake import DataLakeServiceClient
-from msrest.authentication import TopicCredentials
+from zipfile import ZipFile
 
 from utility import (
     EVENT_TOPIC_URI, EVENT_TOPIC_KEY,
     LAKE_URL, STORE_KEY,
     LAKE_CONTAINER, LAKE_FOLDER_PATH)
+from utility.api.event import EventGridHook
 from utility.api.lake import LakeFactory
+from utility.api.oracle import OracleFusionHook
 from utility.etl import request_and_load
+import utility.logging
 
 logger = logging.getLogger(__name__)
-
-
-def publish_event():
-    credentials = TopicCredentials(EVENT_TOPIC_KEY)
-    event_grid_client = EventGridClient(credentials)
-    event_grid_client.publish_events(
-        topic_hostname=EVENT_TOPIC_URI,
-        events=[{
-            "id": uuid.uuid4(),
-            "subject": "new-job-oracle-fusion",
-            "data": {
-                "source": "bsh.aci.oracle2lake.dev",
-                "file_name_prefix": "MANIFEST_DATA_41"
-            },
-            "event_type": "new-job-event-3",
-            "event_time": datetime.utcnow(),
-            "data_version": 1
-        }]
-    )
 
 
 if __name__ == '__main__':
@@ -47,14 +25,30 @@ if __name__ == '__main__':
     # tmp_folder = './jupyter/data'
     # request_and_load(output_folder=tmp_folder)
 
-    publish_event()
+    event_client = EventGridHook(
+        topic_uri=EVENT_TOPIC_URI,
+        topic_key=EVENT_TOPIC_KEY)
 
-    # logger.info("Uploading to lake")
+    for i in range(3):
+        logger.info(f"Publishing event {i}")
 
-    # Using string
-    # data = json.dumps({"key": "testing text"})
-    # LakeFactory().upload_data(lake_container=LAKE_CONTAINER, lake_dir=LAKE_FOLDER_PATH,
-    #                           file_name='test-02.txt', data=data)
+        event_client.publish_event(
+            subject="new-job-oracle-fusion",
+            event_type="new-job-event-3",
+            data={
+                "source": "bsh.aci.oracle2lake.dev",
+                "tracking_id": i,
+                "file_name_prefix": "MANIFEST_DATA_41",
+                "lake_container": "event-grid-subscribe",
+                "lake_path": "output"
+            })
+        # event_client.publish_event(
+        #     subject="new-job-1",
+        #     event_type="new-job-event-1",
+        #     data={
+        #         "source": "bsh.aci.oracle2lake.dev",
+        #         "tracking_id": i
+        #     })
 
     # Using bytes
     # data = io.BytesIO()

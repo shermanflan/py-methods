@@ -204,3 +204,37 @@ class OracleFusionHook:
             return docs_df, file_paths
         else:
             raise Exception("Document does not exist")
+
+    def get_content(self, document_id):
+        field_element = self.get_soap_client().get_element(
+            name='ns0:Field')
+        service_type = self.get_soap_client().get_type(
+            name='ns0:Service')
+
+        file_service = service_type(
+            Document={
+                "Field": [
+                    field_element(document_id, name='dID')
+                ]
+            },
+            IdcService='GET_FILE')
+
+        logger.debug(f"service: {file_service}")
+
+        response = self.get_soap_client().service.GenericSoapOperation(
+            Service=file_service, webKey='cs')
+
+        documents = []
+        for attach in response['Service']['Document']['ResultSet']:
+            if attach['name'] == 'FILE_DOC_INFO':
+                for row in attach['Row']:
+                    document = {}
+                    for field in row['Field']:
+                        document[field['name']] = field['_value_1']
+                    documents.append(document)
+
+        docs_df = pd.DataFrame(documents)
+        if docs_df.shape[0] > 0:
+            return docs_df, response['Service']['Document']['File']
+        else:
+            raise Exception("Document does not exist")
