@@ -77,6 +77,8 @@ class LakeFactory(object):
 
                 fc = dc.create_file(file=tail)
                 data = f.read()
+                # TODO: Iterative append
+                # https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/storage/azure-storage-file-datalake/samples/datalake_samples_upload_download.py#L49
                 fc.append_data(data, offset=0, length=len(data))
                 fc.flush_data(len(data))
 
@@ -105,6 +107,8 @@ class LakeFactory(object):
             raise
 
         fc = dc.create_file(file=file_name)
+        # TODO: Iterative append
+        # https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/storage/azure-storage-file-datalake/samples/datalake_samples_upload_download.py#L49
         fc.append_data(data, offset=0, length=len(data))
         fc.flush_data(len(data))
 

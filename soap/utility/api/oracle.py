@@ -7,7 +7,9 @@ Miscellaneous:
 for special handling re: XML escaping
 """
 import logging
+import io
 import os
+from os.path import join
 from time import sleep
 from zipfile import ZipFile
 
@@ -115,7 +117,7 @@ class OracleFusionHook:
             documents.append({k: a[k] for k in a if k != 'Content'})
 
             if save_attachments:
-                tmp_path = os.path.join(output_folder, a.DocumentName)
+                tmp_path = join(output_folder, a.DocumentName)
 
                 with open(tmp_path, 'wb') as f:
                     f.write(a.Content)
@@ -153,7 +155,7 @@ class OracleFusionHook:
 
         return pd.DataFrame(results)
 
-    def get_file(self, document_id, output_folder):
+    def get_file(self, document_id, to_folder):
         field_element = self.get_soap_client().get_element(
             name='ns0:Field')
         service_type = self.get_soap_client().get_type(
@@ -182,26 +184,24 @@ class OracleFusionHook:
                     documents.append(document)
 
         docs_df = pd.DataFrame(documents)
-        file_paths = []
+        paths = []
         if docs_df.shape[0] > 0:
 
             for attach in response['Service']['Document']['File']:
-                tmp_path = os.path.join(output_folder, attach['href'])
-                with open(tmp_path, 'wb') as f:
-                    f.write(attach['Contents'])
 
                 content_type = docs_df.loc[
                     docs_df.dOriginalName == attach['href'],
                     'dFormat'].iloc[0]
 
                 if content_type == 'application/zip':
-                    with ZipFile(tmp_path) as z:
-                        z.extractall(path=output_folder)
-                        file_paths.extend(z.namelist())
+                    with ZipFile(io.BytesIO(attach['Contents'])) as z:
+                        z.extractall(path=to_folder)
+                        paths.extend(
+                            [join(to_folder, f) for f in z.namelist()])
                 else:
-                    file_paths.append(tmp_path)
+                    paths.append(join(to_folder, attach['href']))
 
-            return docs_df, file_paths
+            return docs_df, paths
         else:
             raise Exception("Document does not exist")
 

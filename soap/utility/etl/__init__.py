@@ -2,7 +2,7 @@ import logging
 
 from utility import (
     JOB_PACKAGE, JOB_DEFINITION,
-    LAKE_CONTAINER, LAKE_FOLDER_PATH)
+    LAKE_CONTAINER, LAKE_PATH)
 from utility.api.lake import LakeFactory
 from utility.api.oracle import OracleFusionHook
 import utility.logging
@@ -59,5 +59,5 @@ def request_and_load(output_folder):
 
         logger.info("Uploading to lake")
         LakeFactory().upload_files(lake_container=LAKE_CONTAINER,
-                                   lake_dir=LAKE_FOLDER_PATH,
+                                   lake_dir=LAKE_PATH,
                                    files=file_paths)
