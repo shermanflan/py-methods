@@ -1,0 +1,20 @@
+version: 1.0
+# Specify all events to be generated at startup
+events:
+  - name: event-1
+    description: Notify job is submitted
+    event:
+      subject: new-job-oracle-fusion
+      eventType: new-job-event-3
+      fileNamePrefix: MANIFEST_DATA_41
+#      fileNamePrefix: file_fscmtopmodelam_finartoppublicmodelam_transactionheaderpvo-batch1944942919-20201012_063148.zip
+      lakeContainer: event-grid-subscribe
+      lakePath: output
+#  - name: event-2
+#    description: Notify job is submitted
+#    event:
+#      subject: new-job-oracle-fusion
+#      eventType: new-job-event-3
+#      fileNamePrefix: MANIFEST_DATA_41
+#      lakeContainer: event-grid-subscribe
+#      lakePath: output

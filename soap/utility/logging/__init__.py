@@ -9,6 +9,6 @@ logging.basicConfig(
 
 # Quiet chatty libs
 logging.getLogger('azure.core.pipeline.policies').setLevel(logging.ERROR)
-logging.getLogger('urllib3').setLevel(logging.ERROR)
-logging.getLogger('msrest').setLevel(logging.ERROR)
-logging.getLogger('zeep').setLevel(logging.ERROR)
+# logging.getLogger('urllib3').setLevel(logging.ERROR)
+# logging.getLogger('msrest').setLevel(logging.ERROR)
+# logging.getLogger('zeep').setLevel(logging.ERROR)

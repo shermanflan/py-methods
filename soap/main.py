@@ -4,10 +4,12 @@ import logging
 import os
 from tempfile import TemporaryDirectory
 import uuid
+import yaml
+from yaml.loader import FullLoader
 from zipfile import ZipFile
 
 from utility import (
-    EVENT_TOPIC_URI, EVENT_TOPIC_KEY,
+    APP_KEY, EVENT_TOPIC_URI, EVENT_TOPIC_KEY,
     LAKE_URL, STORE_KEY,
     LAKE_CONTAINER, LAKE_PATH)
 from utility.api.event import EventGridHook
@@ -21,36 +23,41 @@ logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':
 
+    logger.info("Loading event configuration")
+
+    with open('config/events.yaml', 'rt', encoding='utf-8') as f:
+        config = yaml.load(f, Loader=FullLoader)
+
+    logger.info(config)
+
     event_client = EventGridHook(
         topic_uri=EVENT_TOPIC_URI,
         topic_key=EVENT_TOPIC_KEY)
 
-    for i in range(1):
-        logger.info(f"Publishing event {i}")
+    for event in [e['event'] for e in config['events']]:
+        logger.info(f"Publishing event {event}")
 
         event_client.publish_event(
-            subject="new-job-oracle-fusion",
-            event_type="new-job-event-3",
+            subject=event['subject'],
+            event_type=event['eventType'],
             data={
-                "source": "bsh.aci.oracle2lake.dev",
-                "tracking_id": i,
-                "file_name_prefix": "file_fscmtopmodelam_finartoppublicmodelam_transactionheaderpvo-batch1944942919-20201012_063148.zip",
-                # "file_name_prefix": "MANIFEST_DATA_41",
-                "lake_container": "event-grid-subscribe",
-                "lake_path": "output"
+                "source": APP_KEY,
+                "tracking_id": str(uuid.uuid4()),
+                "file_name_prefix": event['fileNamePrefix'],
+                "lake_container": event['lakeContainer'],
+                "lake_path": event['lakePath']
             })
-        # event_client.publish_event(
-        #     subject="new-job-1",
-        #     event_type="new-job-event-1",
-        #     data={
-        #         "source": "bsh.aci.oracle2lake.dev",
-        #         "tracking_id": i
-        #     })
 
     # with TemporaryDirectory() as tmp_folder:
     # to_folder = './jupyter/data'
-
     # request_and_load(output_folder=tmp_folder)
+
+    # Using bytes
+    # data = io.BytesIO()
+    # num_bytes = data.write(b"some data2")
+    # data_bytes = data.getvalue()  # read()
+    # LakeFactory().upload_data(lake_container=LAKE_CONTAINER, lake_dir=LAKE_FOLDER_PATH,
+    #                           file_name='test-03.txt', data=data_bytes)
 
     # file_name = 'MANIFEST_DATA_41'
     # file_name = 'file_fscmtopmodelam_finartoppublicmodelam_transactionheaderpvo-batch1944942919-20201012_063148.zip'
@@ -102,13 +109,5 @@ if __name__ == '__main__':
     #                                       lake_dir=LAKE_PATH,
     #                                       file_name=file_name,
     #                                       data=attach['Contents'])
-
-    # Using bytes
-    # data = io.BytesIO()
-    # num_bytes = data.write(b"some data2")
-    # data_bytes = data.getvalue()  # read()
-    #
-    # LakeFactory().upload_data(lake_container=LAKE_CONTAINER, lake_dir=LAKE_FOLDER_PATH,
-    #                           file_name='test-03.txt', data=data_bytes)
 
     logger.info(f"Process complete")

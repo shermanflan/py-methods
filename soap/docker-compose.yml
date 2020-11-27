@@ -5,12 +5,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    ports:
-#      - 8888:8888
-#    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+    ports:
+      - 8888:8888
+    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
     env_file:
       - .env
     environment:
+      - APP_LOG_KEY=bsh.aci.oracle2lake.dev
       - LOG_LEVEL=DEBUG
 #      - JOB_PACKAGE_NAME=oracle/apps/ess/custom/Conversion/
 #      - JOB_DEFINITION_NAME=BHSGLTBREP
