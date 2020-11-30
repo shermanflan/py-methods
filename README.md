@@ -9,4 +9,4 @@ Python library of utilities, frameworks, etc.
 - [libpostal](libpostal): Examples using NLP to cleanse address data
 - [pandas](pandas): Examples using pandas for data wrangling
 - [py-techniques](py-techniques): Reference for Python language elements
-- [soap](soap): Examples interacting with SOAP endpoints in a Pythonic wa
+- [soap](soap): Examples interacting with SOAP endpoints in a Pythonic way
