@@ -1,0 +1,9 @@
+#azure-storage==0.36.0
+azure-storage-blob==12.6.0
+fastparquet==0.4.1
+jupyter==1.0.0
+numpy==1.19.4
+pandas==1.1.4
+pyarrow==2.0.0
+Pygments==2.6.1
+python-snappy==0.5.4

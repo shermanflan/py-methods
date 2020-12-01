@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+#  sql-geonames:
+#    image: sql-geonames
+#    build:
+#      context: ./db
+#      dockerfile: Dockerfile
+#    ports:
+#      - 1433:1433
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=HelloWorld1
+#      - MSSQL_PID=Developer
+  rko-parquet:
+    image: rko-parquet
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+#    depends_on:
+#      - sql-geonames
+    env_file: .env
+    environment:
+        - APP_LOG_KEY=bhs.aci.geonames2lake.dev
+        - LOG_LEVEL=DEBUG
+        - STORE_ACCOUNT_NAME=losstorage63c7a5a882984d
+        - STORE_CONTAINER_NAME=azureml-blobstore-7dc0298d-405d-4195-b11c-242bd9e672e6
+        - STORE_BASE_PATH=
+    volumes:
+      - ./jupyter:/opt/parquet-service/local
