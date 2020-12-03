@@ -57,6 +57,8 @@ if __name__ == '__main__':
     )
     patient_score_kinnser_df = load_dataset('jupyter/data/patient_score_kinnser')
 
+    logger.debug(f'Loaded patient_score_kinnser: {patient_score_kinnser_df.shape}')
+
     logger.info('Loading LTC400 datasets')
 
     # Nursing home patients
