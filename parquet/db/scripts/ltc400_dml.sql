@@ -1,39 +1,43 @@
-SELECT  TOP (1000) 
-        '[LTC400BaseData]' AS [0]
-        ,[index]
-        ,[PharmacyCode],[Resident]  -- PatientKey
-        ,[FirstName]
-        ,[MiddleInitial]
-        ,[LastName]
-        ,[SexCode]
-        ,[FinPlan]
-        ,[PrivateInsurance2]
-        ,[Medicaidfinancial]
-        ,[Facility]
-        ,[Status]
-        ,[AdmitDate]                -- Grain
-        ,[DischargeDate]            -- Grain
-        ,[Birthdate]
-        ,[MedicareNbr]
-        ,[MedicaidNbr]
-        ,[Address1]
-        ,[Address2]
-        ,[City]
-        ,[State]
-        ,[ZipCode]
-        ,[ZipCodePlus4]
-        ,[HomePhone]
-        ,[WorkPhone]
-        ,[EMailID]
-        ,[FacilityName]
-        ,[FacilityAddress1]
-        ,[FacilityAddress2]
-        ,[FacilityCity]
-        ,[FacilityState]
-        ,[FacilityZip]
-        ,[FacilityPhone]
-        ,[ICD10CODE]                -- Grain
-FROM    [ScratchDB].[dbo].[LTC400BaseData]
+SELECT  '[LTC400BaseData]' AS [0]
+        , p.[index]
+        , p.[PharmacyCode],[Resident]  -- PatientKey
+        , p.[FirstName]
+        , p.[MiddleInitial]
+        , p.[LastName]
+        , p.[SexCode]
+        , p.[FinPlan]
+        , p.[PrivateInsurance2]
+        , p.[Medicaidfinancial]
+        , p.[Facility]
+        , p.[Status]
+        , p.[AdmitDate]                -- Grain
+        , p.[DischargeDate]            -- Grain
+        , p.[Birthdate]
+        , p.[MedicareNbr]
+        , p.[MedicaidNbr]
+        , p.[Address1]
+        , p.[Address2]
+        , p.[City]
+        , p.[State]
+        , p.[ZipCode]
+        , p.[ZipCodePlus4]
+		, z.Latitude
+		, z.Longitude
+        , p.[HomePhone]
+        , p.[WorkPhone]
+        , p.[EMailID]
+        , p.[FacilityName]
+        , p.[FacilityAddress1]
+        , p.[FacilityAddress2]
+        , p.[FacilityCity]
+        , p.[FacilityState]
+        , p.[FacilityZip]
+        , p.[FacilityPhone]
+        , p.[ICD10CODE]                -- Grain
+FROM    [Staging].[LTC400BaseData] AS p WITH (READUNCOMMITTED)
+	LEFT JOIN [MasterData].[ZipCode] AS z WITH (READUNCOMMITTED)
+		ON p.[ZipCode] = z.ZipCode
+WHERE	z.Id IS NOT NULL
 ORDER BY [PharmacyCode], [Resident];
 
 SELECT  TOP (1000) 
@@ -48,7 +52,8 @@ SELECT  TOP (1000)
         ,[ICD_5Char]
         ,[row_id]
         ,[cc_category]
-FROM    [ScratchDB].[dbo].[LTC400Crosswalk]
+FROM    [Staging].[LTC400Crosswalk] WITH (READUNCOMMITTED)
+WHERE	[PatientKey] = '000200FJO'
 ORDER BY [PatientKey];
 
 SELECT  TOP (1000) 
@@ -68,5 +73,6 @@ SELECT  TOP (1000)
         ,[patient_risk_score]
         ,[patient_risk_score_scale]
         ,[RiskStratify]
-FROM    [ScratchDB].[dbo].[LTC400PatientScore]
+FROM    [Staging].[LTC400PatientScore] WITH (READUNCOMMITTED)
+WHERE	[PatientKey] = '000200FJO'
 ORDER BY [PatientKey];

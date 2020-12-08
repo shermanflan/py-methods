@@ -158,8 +158,8 @@ CREATE TABLE [Staging].[LTC400BaseData]
 	, [State]				[varchar](max)		NULL
 	, [ZipCode]				[varchar](max)		NULL
 	, [ZipCodePlus4]		[varchar](max)		NULL
-	, [HomePhone]			INT					NULL
-	, [WorkPhone]			INT					NULL
+	, [HomePhone]			BIGINT				NULL
+	, [WorkPhone]			BIGINT				NULL
 	, [EMailID]				[varchar](max)		NULL
 	, [FacilityName]		[varchar](max)		NULL
 	, [FacilityAddress1]	[varchar](max)		NULL
@@ -167,7 +167,7 @@ CREATE TABLE [Staging].[LTC400BaseData]
 	, [FacilityCity]		[varchar](max)		NULL
 	, [FacilityState]		[varchar](max)		NULL
 	, [FacilityZip]			[varchar](max)		NULL
-	, [FacilityPhone]		INT					NULL
+	, [FacilityPhone]		BIGINT				NULL
 	, [ICD10CODE]			[varchar](max)		NULL
 )
 ;
