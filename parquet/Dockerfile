@@ -44,6 +44,7 @@ RUN pip3 --no-cache-dir install -r ${APP_HOME}/requirements.txt \
 
 COPY --chown=parquet-service:parquet-service utility ${APP_HOME}/utility
 COPY --chown=parquet-service:parquet-service ./main.py ${APP_HOME}
+COPY --chown=parquet-service:parquet-service ./jupyter/data/locations ${APP_HOME}/data
 
 USER parquet-service
 

@@ -38,9 +38,11 @@ class AzureBlobHook:
         parquet_blobs = []
 
         for blob in container_client.list_blobs(name_starts_with=blob_prefix):
-            if blob.name.endswith('.parquet'):
-                logger.debug(f"Found {blob.name}")
-                parquet_blobs.append(blob.name)
+            logger.debug(f"Found {blob.name}")
+            parquet_blobs.append(blob.name)
+            # if blob.name.endswith('.parquet'):
+            #     logger.debug(f"Found {blob.name}")
+            #     parquet_blobs.append(blob.name)
 
         os.makedirs(output_directory, exist_ok=True)
 
