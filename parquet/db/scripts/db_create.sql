@@ -10,8 +10,9 @@ BEGIN
     CREATE DATABASE ScratchDB;
 END
 GO
-*/
-USE MasterData_BSHFinancials;
+--*/
+
+USE ScratchDB;
 GO
 
 DROP TABLE IF EXISTS [Staging].[KinnserBIBaseData];
@@ -20,6 +21,21 @@ DROP TABLE IF EXISTS [Staging].[KinnserPatientScore];
 DROP TABLE IF EXISTS [Staging].[LTC400BaseData];
 DROP TABLE IF EXISTS [Staging].[LTC400Crosswalk];
 DROP TABLE IF EXISTS [Staging].[LTC400PatientScore];
+DROP TABLE IF EXISTS [Staging].[KinnserPatientBranch];
+GO
+
+IF EXISTS (
+    SELECT  *
+    FROM    sys.schemas
+    WHERE   name = 'Staging'
+)
+BEGIN
+    DROP SCHEMA Staging;
+END
+GO
+
+CREATE SCHEMA Staging;
+GO
 
 CREATE TABLE [Staging].[KinnserBIBaseData]
 (
@@ -117,9 +133,7 @@ CREATE TABLE [Staging].[KinnserPatientScore]
 	, [index]						[bigint]				NULL
 	, [PatientKey]					[bigint]				NULL
 	, [hcc_ce]						[float]					NULL
-	, [hcc_ins]						[float]					NULL
-	, [hcc_ne]						[float]					NULL
-	, [hcc_cc_ce]					[float]					NULL
+	, [hcc_ce_cc]					[float]					NULL
 	, [hcupModelScore]				[float]					NULL
 	, [lr_cc]						[float]					NULL
 	, [rf_cc]						[float]					NULL
@@ -127,7 +141,11 @@ CREATE TABLE [Staging].[KinnserPatientScore]
 	, [cc_readmission]				[float]					NULL
 	, [patient_risk_score]			[float]					NULL
 	, [patient_risk_score_scale]	[float]					NULL
-	, [RiskStratify]				[varchar](max)			NULL
+	, [RiskStratify]				[varchar](64)			NULL
+	, [accessible_conditions]		[float]					NULL
+	, [hosp_risk_score]			    [float]					NULL
+	, [num_active_med]	            INT					    NULL
+	, [priority]				    [varchar](64)			NULL
 )
 ;
 
@@ -197,9 +215,7 @@ CREATE TABLE [Staging].[LTC400PatientScore]
 	, [index]						[bigint]			NULL
 	, [PatientKey]					[varchar](max)		NULL
 	, [hcc_ce]						[float]				NULL
-	, [hcc_ins]						[float]				NULL
-	, [hcc_ne]						[float]				NULL
-	, [hcc_cc_ce]					[float]				NULL
+	, [hcc_ce_cc]					[float]				NULL
 	, [hcupModelScore]				[float]				NULL
 	, [lr_cc]						[float]				NULL
 	, [rf_cc]						[float]				NULL
@@ -208,5 +224,27 @@ CREATE TABLE [Staging].[LTC400PatientScore]
 	, [patient_risk_score]			[float]				NULL
 	, [patient_risk_score_scale]	[float]				NULL
 	, [RiskStratify]				[varchar](max)		NULL
+	, [accessible_conditions]		[float]					NULL
+	, [hosp_risk_score]			    [float]					NULL
+	, [num_active_med]	            INT					    NULL
+	, [priority]				    [varchar](64)			NULL
 )
 ;
+
+CREATE TABLE [Staging].[KinnserPatientBranch]
+(
+	Id                      INT IDENTITY(1, 1)	NOT NULL
+		PRIMARY KEY
+	, [index]               [bigint]            NULL
+	, [PatientKey]          [bigint]            NULL
+	, [BranchKey]           INT                 NULL
+	, [cnt]                 INT                 NULL
+	, [PatientZipCode]      INT                 NULL
+	, [PatientLatitude]     [float]             NULL
+	, [PatientLongitude]    [float]             NULL
+	, [BranchZipCode]       INT                 NULL
+	, [BranchLatitude]      [float]             NULL
+	, [BranchLongitude]     [float]             NULL
+	, [miles_apart]         [float]             NULL
+);
+GO
