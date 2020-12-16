@@ -23,8 +23,6 @@ def topological_sort(g):
         if in_deg[v.uid] == 0:  # no constraints
             ready_q.append(v)
 
-    # Ready_q will be empty if a cycle exists as no vertices will have
-    # in degree of 0.
     while ready_q:
         v = ready_q.pop()
         topo.append(v)  # add to topological sort
@@ -37,5 +35,43 @@ def topological_sort(g):
             if in_deg[neighbor.uid] == 0:
                 ready_q.append(neighbor)
 
-    # Returns None if there is a cycle
+    # If there is a cycle, edges will remain
     return topo
+
+
+def topological_sort2(numCourses, prereqs):
+    """
+    This version accepts an input graph in edge list format:
+    [(a, b) such that a is dependent on b, i.e. b => a]
+    """
+    from collections import deque
+
+    topo_sort = []
+    in_degree = [0 for _ in range(numCourses)]
+
+    # Calculate in degree for each vertex
+    for end, start in prereqs:
+        in_degree[end] += 1
+
+    # Construct initial ready queue (in degree zero)
+    ready_queue = deque([i for i, d in enumerate(in_degree) if d == 0])
+
+    while ready_queue:
+
+        pre_req = ready_queue.popleft()
+        topo_sort.append(pre_req)
+
+        for post_req in get_out_edges(pre_req, prereqs):
+
+            # "Remove edge"
+            in_degree[post_req] -= 1
+
+            if in_degree[post_req] == 0:
+                ready_queue.append(post_req)
+
+    # If there is a cycle, edges will remain
+    return topo_sort, in_degree
+
+
+def get_out_edges(node, edges):
+    return [u for u, v in edges if v == node]
