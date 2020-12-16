@@ -26,7 +26,8 @@ class GraphException(Exception):
 
 
 # TODO: Also create a simple Graph representation that's easy to remember.
-#  Maybe Graph of Dictionary(uid, Node), Node of Dictionary(uid, (Edge, Node))
+# Maybe Graph of Dictionary(uid, Node), Node of Dictionary(uid, (Edge, Node))
+# Or, list of named tuple (p, q, e) where index represents ith node in graph.
 class Graph:
     """
     DATA-003
