@@ -39,38 +39,47 @@ def topological_sort(g):
     return topo
 
 
-def topological_sort2(numCourses, prereqs):
+def topological_sort2(node_count, prereqs):
     """
-    This version accepts an input graph in edge list format:
+    Alternate implementation which accepts an input graph in edge list 
+    format:
+    
     [(a, b) such that a is dependent on b, i.e. b => a]
+    
+    TODO:
+    - Convert edge list format to adjacency list
+    - Convert edge list format to sparse matrix
     """
     from collections import deque
 
     topo_sort = []
-    in_degree = [0 for _ in range(numCourses)]
+    in_degree = [0 for _ in range(node_count)]
 
     # Calculate in degree for each vertex
     for end, start in prereqs:
         in_degree[end] += 1
 
-    # Construct initial ready queue (in degree zero)
+    # Construct initial ready queue
     ready_queue = deque([i for i, d in enumerate(in_degree) if d == 0])
+    visited = 0
 
     while ready_queue:
 
         pre_req = ready_queue.popleft()
         topo_sort.append(pre_req)
+        visited += 1
 
         for post_req in get_out_edges(pre_req, prereqs):
 
-            # "Remove edge"
+            # Remove edge
             in_degree[post_req] -= 1
 
             if in_degree[post_req] == 0:
                 ready_queue.append(post_req)
 
     # If there is a cycle, edges will remain
-    return topo_sort, in_degree
+    # if no cycle, then visited == node_count
+    return topo_sort, in_degree, visited
 
 
 def get_out_edges(node, edges):
