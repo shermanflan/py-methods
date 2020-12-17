@@ -16,9 +16,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    ports:
-#      - 8888:8888
-#    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
+    ports:
+      - 8888:8888
+    command: "jupyter notebook --ip 0.0.0.0 --no-browser --allow-root --NotebookApp.token=''"
 #    depends_on:
 #      - sql-parquet
     env_file: .env

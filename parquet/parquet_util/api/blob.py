@@ -4,7 +4,7 @@ import os
 from azure.core.exceptions import ResourceNotFoundError
 from azure.storage.blob import BlobServiceClient
 
-import utility.log
+import parquet_util.log
 
 logger = logging.getLogger(__name__)
 

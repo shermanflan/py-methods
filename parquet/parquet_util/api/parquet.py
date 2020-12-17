@@ -2,7 +2,7 @@ import logging
 
 import pyarrow.parquet as pq
 
-import utility.log
+import parquet_util.log
 
 logger = logging.getLogger(__name__)
 

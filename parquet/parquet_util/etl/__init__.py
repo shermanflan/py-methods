@@ -2,15 +2,15 @@ import logging
 
 import pandas as pd
 
-from utility import (
+from parquet_util import (
     ACCOUNT_KEY, ACCOUNT_NAME, CONTAINER_NAME,
     SQL_HOST, SQL_DB, SQL_USER, SQL_PASSWORD,
     SQL_DRIVER
 )
-from utility.api.blob import AzureBlobHook
-from utility.api.db import SQLHook
-from utility.api.parquet import load_dataset
-import utility.log
+from parquet_util.api.blob import AzureBlobHook
+from parquet_util.api.db import SQLHook
+from parquet_util.api.parquet import load_dataset
+import parquet_util.log
 
 logger = logging.getLogger(__name__)
 
