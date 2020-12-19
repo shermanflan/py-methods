@@ -1,5 +1,5 @@
 # TODO: Install jupyter lab
-jupyter
+# jupyter
 numpy
 pandas
 postal
