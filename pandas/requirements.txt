@@ -2,10 +2,10 @@ pandas
 numpy
 pyodbc
 sqlalchemy
-jupyter
+#jupyter
 pytest
-sklearn
-seaborn
+#sklearn
+#seaborn
 numba
 marshmallow
 marshmallow-sqlalchemy
