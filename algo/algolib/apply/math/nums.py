@@ -101,7 +101,7 @@ def is_prime(n):
     if n%2 == 0:  # evens are not prime
         return False
 
-    for i in range(3, floor(sqrt(n)), 2):
+    for i in range(3, ceil(sqrt(n)), 2):
         if n%i == 0:
             return False
 
@@ -118,7 +118,7 @@ def is_prime_sieve(n):
     prime[0] = False
     prime[1] = False
 
-    for i in range(2, floor(sqrt(n))):
+    for i in range(2, ceil(sqrt(n))):
         if prime[i]:
             # Set all multiples of i to False
             for k in range(i*i, n+1, i):
