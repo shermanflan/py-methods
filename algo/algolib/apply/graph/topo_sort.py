@@ -1,4 +1,5 @@
-
+from collections import deque
+from typing import List
 
 """
 If we model a feasible set of tasks as vertices of a directed graph,
@@ -50,8 +51,6 @@ def topological_sort2(node_count, prereqs):
     - Convert edge list format to adjacency list
     - Convert edge list format to sparse matrix
     """
-    from collections import deque
-
     topo_sort = []
     in_degree = [0 for _ in range(node_count)]
 
@@ -84,3 +83,46 @@ def topological_sort2(node_count, prereqs):
 
 def get_out_edges(node, edges):
     return [u for u, v in edges if v == node]
+
+
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.in_degree = 0
+        self.neighbors = {}
+
+
+def topological_sort3(num_courses: int, prerequisites: List[List[int]]) -> List[int]:
+    """
+    Yet another implementation, modeled as course pre-requisites.
+    """
+    graph = {}
+
+    for course_num in range(num_courses):
+        graph[course_num] = Node(course_num)
+
+    for course, pre_req in prerequisites:
+        graph[course].in_degree += 1
+        graph[pre_req].neighbors[course] = graph[course]
+
+    q = deque()
+    topo_sort = []
+
+    for key in graph.keys():
+        if graph[key].in_degree == 0:
+            q.append(graph[key])
+
+    while q:
+        node = q.pop()
+        topo_sort.append(node.val)
+
+        for child in node.neighbors.values():
+            child.in_degree -= 1
+
+            if child.in_degree == 0:
+                q.append(child)
+
+    if len(topo_sort) == num_courses:
+        return topo_sort
+    else:
+        return []

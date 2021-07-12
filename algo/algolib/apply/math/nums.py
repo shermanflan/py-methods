@@ -181,6 +181,20 @@ def lcm(a, b):
     return (a / gcd(a, b)) * b
 
 
+def divisors(n):
+    """
+    Find divisors of n
+    """
+    factors = []
+    for d in range(1, ceil(sqrt(n)) + 1):
+        if n % d == 0:
+            factors.append((d, int(n/d)))
+            if d != int(n/d):
+                factors.append((int(n / d), d))
+
+    return factors
+
+
 # TODO
 def prime_factors(n):
     pass

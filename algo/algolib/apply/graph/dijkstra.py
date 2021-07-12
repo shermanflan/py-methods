@@ -3,7 +3,7 @@
 Finds minimum distance in a graph with positive edges (w(e) >= 0).
 This algorithm is undefined for negative-weight paths.
 
-An example of a "greedy" algorithm which solve the problem at hand
+An example of a "greedy" algorithm which solves the problem at hand
 by repeatedly selecting the best choice from among those available
 in each iteration. Greedy approaches are useful when trying to
 optimize some cost function over a collection of objects.
@@ -13,6 +13,9 @@ from algolib.model.heap import *
 
 
 def shortest_path(g, start):
+    """
+    TODO: Reimplement with simple data structure.
+    """
     dist = {}  # shortest distances so far
     cloud = {}  # shortest path to vertices so far
     pq = Heap()  # min heap of dist[v]: v
@@ -44,6 +47,9 @@ def shortest_path(g, start):
 
 def build_shortest_path_tree(g, start, dist):
     """
+    TODO: Reimplement with simple data structure. Not sure what this
+    does?
+
     Constructs minimum path from start to a vertex v as
     stored in the tree map (vertex to edge from predecessor).
     """
